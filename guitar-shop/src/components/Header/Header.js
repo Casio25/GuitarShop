@@ -1,21 +1,40 @@
+import "./Header.css"
 import { NavLink } from "react-router-dom";
+import MainLogo from "../../assets/logos/MainLogo.png"
+import icon_map from "../../assets/icons/icon_map.png"
+import icon_search from "../../assets/icons/icon_search.png"
+import icon_basket from "../../assets/icons/icon_basket.png"
 
 export const Header = () => {
-    const headerTextNames = ["Каталог", "Де придбати?", "Про нас", "Сервіс центри"];
-    const headerTextLinks = ["/.", "/where_to_buy", "/about_us", "/service_centers" ];
+    const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
+    const headerTextLinks = ["./", "/where_to_buy", "/about_us", "/service_centers" ];
+
+
+    const Search = (e) =>{
+        console.log("test")
+    }
+    const Basket = (e) =>{
+        console.log("basket")
+    }
+
 
     return (
         <>
         <div className="HeaderBlock">
             <nav className="header_main_logo">
-                <NavLink></NavLink>
+                <NavLink to="./"><img className="main_logo" src={MainLogo} alt="Main Logo" /></NavLink>
             </nav>
             <nav className="header_text_links">
                 {headerTextNames.map((headerTextName, index) =>(
-                    <NavLink key={headerTextName} to ={headerTextLinks[index]}>
+                    <NavLink className="header_text_link" key={headerTextName} to ={headerTextLinks[index]}>
                         {headerTextName}
                     </NavLink>
                 ))}
+            </nav>
+            <nav className="header_icons">
+                <NavLink to="/map"><img  className="header_icon_map" src={icon_map} alt="serch_icon"/></NavLink>
+                <img className="search_button" src={icon_search} alt="search_button" onClick={Search} />
+                <img className="basket_button" src={icon_basket} alt="basket_button" onClick={Basket} />
             </nav>
         </div>
         </>

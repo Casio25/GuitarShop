@@ -1,0 +1,37 @@
+.HeaderBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:rgba(30, 9, 6, 0.15);
+
+}
+
+/* logo on left side of the header*/
+.header_main_logo{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* icons on right side of the header*/
+.header_icons{
+    cursor: pointer;
+    margin-right: 20px;
+}
+.basket_button{
+    padding: 10px;
+}
+
+/* middle part in the header*/
+.header_text_link{
+    margin-left: 20px;
+}
+nav .header_text_link:visited{
+    color: rgba(0, 0, 0, 1);
+
+}
+nav .header_text_link{
+    color: rgba(0, 0, 0, 1);
+    text-decoration: none;
+}

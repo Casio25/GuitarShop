@@ -1,0 +1,100 @@
+.parent{
+    position: relative;
+    margin-top: auto;
+    
+}
+
+.FooterBlock{
+
+margin-bottom: -220px;
+
+}
+
+
+.MainFooterBlock{
+    margin-top: auto;
+    position: absolute;
+        /* Adjust positioning as needed */
+       
+        /* Position the footer at the bottom */
+        width: 100%;
+        /* Set a width explicitly */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(63, 63, 63, 1);
+}
+
+.footer_main_logo img{
+    width: 100px;
+    margin-left: 40px;
+}
+
+.social_logos {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.social_logos .social_logo {
+    margin-right: 10px;
+    /* Add some space between logo links */
+}
+
+.social_logos .social_logo img {
+    width: 40px;
+    margin-right: 10px;
+    /* Add some space between logo images */
+}
+
+.footer_text_info {
+    display: flex;
+    justify-content: center;
+    /* Center the elements */
+    /* flex-wrap: wrap; */
+    align-content: center;
+    color: rgba(255, 255, 255, 1);
+}
+
+.footer_text_info div{
+    margin-left: 20px;
+}
+.footer_about_us {
+    flex-basis: 25%;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    
+}
+
+.footer_text_info h3 {
+    margin-bottom: 10px;
+    
+}
+
+.footer_catalog{
+    flex-basis: 15%;
+}
+/* Каталог гітар у футері*/
+.footer_catalog a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.footer_questions a{
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    color: rgba(255, 255, 255, 1);
+}
+
+/*making phone icon bigger*/
+.phone_icon{
+    width: 15px;
+}
+.clock_icon{
+    width: 15px;
+}
