@@ -4,6 +4,7 @@ import MainLogo from "../../assets/logos/MainLogo.png"
 import icon_map from "../../assets/icons/icon_map.png"
 import icon_search from "../../assets/icons/icon_search.png"
 import icon_basket from "../../assets/icons/icon_basket.png"
+import image_guitar_header from "../../assets/images/image_guitar_header.png"
 
 export const Header = () => {
     const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
@@ -20,7 +21,7 @@ export const Header = () => {
 
     return (
         <>
-        <div className="HeaderBlock">
+        <div className="MainHeaderBlock">
             <nav className="header_main_logo">
                 <NavLink to="./"><img className="main_logo" src={MainLogo} alt="Main Logo" /></NavLink>
             </nav>
@@ -36,6 +37,10 @@ export const Header = () => {
                 <img className="search_button" src={icon_search} alt="search_button" onClick={Search} />
                 <img className="basket_button" src={icon_basket} alt="basket_button" onClick={Basket} />
             </nav>
+            
+        </div>
+        <div className="image_header">
+            <img className="image_guitar_header" src={image_guitar_header} alt="image_guitar_header"/>
         </div>
         </>
     );

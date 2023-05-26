@@ -3,6 +3,8 @@ import { Footer } from "./components/Footer/Footer";
 import { Catalog } from "./Pages/Catalog/Catalog";
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import "./App.css"
+import { offers } from "./components/FakeData";
+console.log(offers)
 
 function App() {
   return (

@@ -1,9 +1,13 @@
-.HeaderBlock{
+
+.MainHeaderBlock {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* Ensure the header appears above other elements */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background:rgba(30, 9, 6, 0.15);
-
+    background: rgb(119, 119, 119);
 }
 
 /* logo on left side of the header*/
@@ -34,4 +38,19 @@ nav .header_text_link:visited{
 nav .header_text_link{
     color: rgba(0, 0, 0, 1);
     text-decoration: none;
+}
+
+.image_header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 100%;
+    /* Ensure the container takes full height */
+}
+
+.image_header img {
+    margin-left: auto;
+    margin-top: -50px;
+    z-index: 200;
+    /* Move the image to the right side of the container */
 }

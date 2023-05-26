@@ -1,30 +1,25 @@
-.parent{
-    position: relative;
-    margin-top: auto;
-    
-}
-
-.FooterBlock{
-
-margin-bottom: -220px;
-
-}
-
-
-.MainFooterBlock{
-    margin-top: auto;
+.FooterBlock {
     position: absolute;
-        /* Adjust positioning as needed */
-       
-        /* Position the footer at the bottom */
-        width: 100%;
-        /* Set a width explicitly */
+    margin-top: 60vh;
+    z-index: 2;
+}
+
+.image_guitar_footer {
+    position: relative;
+    z-index: 1;
+}
+
+.MainFooterBlock {
+    margin-top: auto;
+    position: relative;
+    /* Adjust positioning as needed */
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: rgba(63, 63, 63, 1);
+    z-index: 3;
 }
-
 .footer_main_logo img{
     width: 100px;
     margin-left: 40px;
