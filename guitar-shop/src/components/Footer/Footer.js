@@ -12,7 +12,7 @@ export const Footer = () => {
     return (
         <>
         <div className="FooterBlock">
-        <img className="image_guitar_footer" src={image_guitar_footer} alt="image-guitar_footer" />
+        
         </div>
         <div className="MainFooterBlock">
             <div className="footer_logos">

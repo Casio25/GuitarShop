@@ -25,3 +25,11 @@ export const RandomSymbols = () => {
 
     return `${randomLetter}${randomNumbers[0]}${randomNumbers[1]}`;
 };
+
+export const sortUp = (data) => {
+    return data.sort((a, b) => a - b);
+}
+
+export const sortDown = (data) => {
+    return data.sort((a, b) => b - a)
+}

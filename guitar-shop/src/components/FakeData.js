@@ -11,6 +11,7 @@ const createJSON = () => {
     const getRandomTypeName = func.RandomNaturalNumber(0, variables.typeList.length );
     const typeValue = variables.typeList[getRandomTypeName];
     const randomNameSymbols = func.RandomSymbols();
+    const slicedShuffledComments = (func.shuffle(variables.randomComments)).slice(0, func.RandomNaturalNumber(1, variables.randomComments.length))
     function RandomName(type) {
         const generatedNames = new Set();
         let name = "";
@@ -25,13 +26,13 @@ const createJSON = () => {
     function stringRanger(type){
         let stringNumber = undefined;
         switch (type) {
-            case "Акустична":
+            case "acustic":
                 stringNumber = variables.acusticString[func.RandomNaturalNumber(0, variables.acusticString.length )];
                 break;
-            case "Електро":
+            case "electro":
                 stringNumber = variables.electroString[func.RandomNaturalNumber(0, variables.electroString.length )];
                 break;
-            case "Укулеле":
+            case "ukulele":
                 stringNumber = variables.ukuleleString;
                 break;
             default:
@@ -43,21 +44,21 @@ const createJSON = () => {
     function priceRanger(type) {
         let price = "";
         switch (type) {
-            case "Акустична":
+            case "acustic":
                 price = func.RandomNaturalNumberStep(
                     variables.acusticPrice.MIN,
                     variables.acusticPrice.MAX,
                     variables.acusticPrice.STEP
                 );
                 break;
-            case "Електро":
+            case "electro":
                 price = func.RandomNaturalNumberStep(
                     variables.electroPrice.MIN,
                     variables.electroPrice.MAX,
                     variables.electroPrice.STEP
                 );
                 break;
-            case "Укулеле":
+            case "ukulele":
                 price = func.RandomNaturalNumberStep(
                     variables.ukulelePrice.MIN,
                     variables.ukulelePrice.MAX,
@@ -77,6 +78,8 @@ const createJSON = () => {
         photo: variables.photoList[getRandomTypeName],
         price: priceRanger(typeValue),
         string: stringRanger(typeValue),
+        comments: slicedShuffledComments,
+        rating: func.RandomNaturalNumber(variables.rating.MIN, variables.rating.MAX)
     };
 };
   
