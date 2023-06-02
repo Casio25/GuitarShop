@@ -11,7 +11,7 @@ import Modal from "../../components/ShoppingCart/ShoppingCart.js"
 export const Header = () => {
     const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
     const headerTextLinks = ["./", "/where_to_buy", "/about_us", "/service_centers" ];
-    const [modalActive, setModalActive] = useState(true)
+    const [modalActive, setModalActive] = useState(false)
 
 
     const Search = (e) =>{
