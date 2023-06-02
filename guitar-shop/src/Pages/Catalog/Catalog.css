@@ -25,10 +25,45 @@
 
 
 /* buttons desing */
-
+.guitar_buttons button{
+    cursor: pointer;
+}
 
 .button_more_info{
     color: white;
     background: #C1C1C1;
     border-radius: 2px;
+}
+
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    transform: scale(0);
+}
+
+.modal_content {
+    background-color: white;
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal_content h2 {
+    margin-left: 30%;
 }

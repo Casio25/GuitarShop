@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {observable} from "mobx"
 const filteredDataStore = observable({
     filteredData: [],

@@ -1,13 +1,76 @@
 import { toJS } from "mobx";
-import { observer } from "mobx-react"; // Import observer from mobx-react
+import { observer } from "mobx-react";
+import { useState } from "react";
 import FilterBlock from "../../components/Filter/Filter";
 import filteredDataStore from "../../store/FilteredDataStore";
+import ShoppingCartStore from "../../store/ShoppingCartStore";
 import MainLogo from "../../assets/logos/MainLogo.png";
 import SortBlock from "../../components/Sort/Sort.js"
 import "./Catalog.css"
 
 
-const Catalog = observer(() => { 
+const Catalog = () => { 
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState({
+        guitarName: undefined,
+        photo: undefined,
+        rating: undefined
+    }
+    )
+    const [currentPage, setCurrentPage] = useState(1);
+    const cardsPerPage = 9;
+    
+
+    const Modal = ({ active, setActive, product }) => {
+        const handleSubmit = (e) => {
+            e.preventDefault();
+        }
+
+        
+
+        return (
+            <>
+                <div
+                    className={active ? "modal active" : "modal"}
+                    onClick={() => setActive(false)}
+                >
+                <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+                    <h2>Додати товар до кошику</h2>
+                    <h3 className="modal_name">{product.name}</h3>
+                        <img className="modal_image" src={product.photo} alt="photo" />
+
+                </div>
+
+            </div>
+            </>
+        )
+
+
+    }
+
+
+    function addToShoppingCart(e) {
+        const value = e.target.value;
+        ShoppingCartStore.addToShoppingCart(value);
+    }
+
+    function ModalMoreInfo(e) {
+        setSelectedProduct(e);
+        setIsModalOpen(true);
+    }
+
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const currentCards = toJS(filteredDataStore.filteredData).slice(indexOfFirstCard, indexOfLastCard);
+
+    
+    const totalPages = Math.ceil(toJS(filteredDataStore.filteredData).length / cardsPerPage);
+
+    const goToPage = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <>
             <SortBlock />
@@ -17,7 +80,7 @@ const Catalog = observer(() => {
                 <img className="main_logo" src={MainLogo} alt="Main Logo" />
             </div>
             <div className="guitar_catalog">
-                {toJS(filteredDataStore.filteredData).map((filteredData, index) => (
+                {currentCards.map((filteredData, index) => (
                     <div className="guitar_card" key={index}>
                         <img className="guitar_image" src={filteredData.photo} alt="photo" />
                         <p className="guitar_name">{filteredData.guitarName}</p>
@@ -28,16 +91,29 @@ const Catalog = observer(() => {
                             ))}
                         </p>
                         <div className="guitar_buttons">
-                            <button className="button_more_info">Інформація</button>
+                            <button className="button_more_info" onClick={() => ModalMoreInfo(filteredData)}>Інформація</button>
                             <button className="button_buy">Купити</button>
                         </div>
 
                     </div>
                 ))}
             </div>
+            <Modal active={isModalOpen} setActive={setIsModalOpen} product={selectedProduct} />
+
+            <div className="pagination">
+                {Array.from({ length: totalPages }, (element, index) => (
+                    <button
+                        key={index}
+                        className={`pagination_button ${currentPage === index + 1 ? "active" : ""}`}
+                        onClick={() => goToPage(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
 
         </>
     );
-});
+};
 
-export default Catalog;
+export default observer(Catalog);
