@@ -1,14 +1,17 @@
 import "./Header.css"
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 import MainLogo from "../../assets/logos/MainLogo.png"
 import icon_map from "../../assets/icons/icon_map.png"
 import icon_search from "../../assets/icons/icon_search.png"
 import icon_basket from "../../assets/icons/icon_basket.png"
 import image_guitar_header from "../../assets/images/image_guitar_header.png"
+import Modal from "../../components/ShoppingCart/ShoppingCart.js"
 
 export const Header = () => {
     const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
     const headerTextLinks = ["./", "/where_to_buy", "/about_us", "/service_centers" ];
+    const [modalActive, setModalActive] = useState(true)
 
 
     const Search = (e) =>{
@@ -35,13 +38,14 @@ export const Header = () => {
             <nav className="header_icons">
                 <NavLink to="/map"><img  className="header_icon_map" src={icon_map} alt="serch_icon"/></NavLink>
                 <img className="search_button" src={icon_search} alt="search_button" onClick={Search} />
-                <img className="basket_button" src={icon_basket} alt="basket_button" onClick={Basket} />
+                <img className="basket_button" src={icon_basket} alt="basket_button" onClick={() => setModalActive(true)} />
             </nav>
             
         </div>
         <div className="image_header">
             <img className="image_guitar_header" src={image_guitar_header} alt="image_guitar_header"/>
         </div>
+        <Modal active={modalActive} setActive={setModalActive}/>
         </>
     );
 
