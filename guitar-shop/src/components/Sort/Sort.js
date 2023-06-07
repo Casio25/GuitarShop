@@ -2,59 +2,59 @@ import { observer } from "mobx-react";
 import { toJS } from "mobx";
 import { useEffect, useState } from "react";
 import filteredDataStore from "../../store/FilteredDataStore";
-import "./Sort.css"
+import "./Sort.css";
 
 const SortBlock = () => {
-    const [sortType, setSortType] = useState(undefined);
-    const [sortDynamic, setSortDynamic] = useState(undefined);
+    const [sortType, setSortType] = useState();
+    const [sortDirection, setSortDirection] = useState();
 
-    const sortData = () => {
-        let sortedArray = toJS(filteredDataStore.filteredData);
-        switch (sortType) {
-            case "price":
-                sortedArray.sort((a, b) => a.price - b.price);
-                break;
-            case "rating":
-                sortedArray.sort((a, b) => a.rating - b.rating);
-                break;
-            default:
-                sortedArray.sort((a, b) => a.price - b.price);
-                break;
-        }
 
-        if (sortDynamic === "down") {
-            sortedArray.reverse();
-        }
-        filteredDataStore.updateFilteredData(sortedArray);
-        console.log(sortedArray);
-    };
-
+    
 
     useEffect(() => {
-        
-        sortData();
-    }, [sortType, sortDynamic]);
+        filteredDataStore.sortData(sortType, sortDirection);
+    }, [sortType, sortDirection]);
+
+
 
     return (
         <>
             <div className="sortBlock">
                 <div className="sort_criteria">
-                    <p className="sort_price_button" value="price" onClick={() => setSortType("price")}>
+                    <p
+                        className={`sort_price_button ${sortType === "price" ? "active" : ""}`}
+                        value="price"
+                        onClick={() => setSortType("price")}
+                    >
                         Sort by price
                     </p>
-                    <p className="sort_rating_button" value="rating" onClick={() => setSortType("rating")}>
+                    <p
+                        className={`sort_rating_button ${sortType === "rating" ? "active" : ""}`}
+                        value="rating"
+                        onClick={() => setSortType("rating")}
+                    >
                         Sort by rating
                     </p>
                 </div>
                 <div className="sort_dynamic">
-                    <p className="sort_up_button" value="up" onClick={() => setSortDynamic("up")}>
+                    <p
+                        className={`sort_up_button ${sortDirection === "up" ? "active" : ""}`}
+                        value="up"
+                        onClick={() => setSortDirection("up")}
+                    >
                         up
                     </p>
-                    <p className="sort-down_button" value="down" onClick={() => setSortDynamic("down")}>
+                    <p
+                        className={`sort_down_button ${sortDirection === "down" ? "active" : ""}`}
+                        value="down"
+                        onClick={() => setSortDirection("down")}
+                    >
                         down
                     </p>
                 </div>
             </div>
+
+            
         </>
     );
 };

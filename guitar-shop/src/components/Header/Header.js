@@ -14,12 +14,7 @@ export const Header = () => {
     const [modalActive, setModalActive] = useState(false)
 
 
-    const Search = (e) =>{
-        console.log("test")
-    }
-    const Basket = (e) =>{
-        console.log("basket")
-    }
+
 
 
     return (
@@ -37,7 +32,7 @@ export const Header = () => {
             </nav>
             <nav className="header_icons">
                 <NavLink to="/map"><img  className="header_icon_map" src={icon_map} alt="serch_icon"/></NavLink>
-                <img className="search_button" src={icon_search} alt="search_button" onClick={Search} />
+                <img className="search_button" src={icon_search} alt="search_button" />
                 <img className="basket_button" src={icon_basket} alt="basket_button" onClick={() => setModalActive(true)} />
             </nav>
             

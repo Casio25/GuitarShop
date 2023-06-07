@@ -5,6 +5,7 @@ import ukulele from "../assets/images/ukulele.png";
 export const numberOfOffers = 45;
 export const photoList = [acustic, electro, ukulele];
 export const typeList = ["acustic", "electro", "ukulele"];
+export const HTMLTypeList = ["Акустична", "Електро", "Укулеле"]
 export const ukulelePrice = {
     MIN: 100,
     MAX: 200,
@@ -39,4 +40,5 @@ export const randomComments = [
     "I always enjoy browsing the guitar collection in this shop.",
     "They have some unique and rare guitars available."
 ];
-
+export const cardsPerPage = 9;
+export const startPage = 1;

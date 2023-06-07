@@ -15,7 +15,7 @@ import ShoppingCartStore from "../../store/ShoppingCartStore";
                     <div className="modal_content" onClick={(e) => e.stopPropagation()}>
                         <h2>Кошик</h2>
                         <div className="store">
-                            {ShoppingCartStore.ShoppingCart.map((product, index) =>(
+                            {ShoppingCartStore.ShoppingCart.map((product) =>(
                                 <p onClick={() => ShoppingCartStore.removeFromShoppingCart(product)}>{product.guitarName} </p>
                             ))}
                         </div>
