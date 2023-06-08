@@ -64,35 +64,26 @@
     color: white;
 }
 
-.modal.active {
-    opacity: 1;
-    pointer-events: all;
-    transform: scale(1);
-}
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+.pagination{
     display: flex;
-    justify-content: center;
-    /* Center horizontally */
-    align-items: center;
-    /* Center vertically */
-    transform: scale(0);
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-
-.modal_content {
+.pagination button{
+    padding: 8px 12px;
+    /* Adjust the padding values to change the button size */
+    font-size: 14px;
+    /* Adjust the font-size to change the button text size */
     background-color: white;
-    padding: 20px;
-    max-width: 400px;
-    text-align: center;
+    margin-left: 10px;
+    border-radius: 2px;
+    border: 1px solid #DDDADA;
+    cursor: pointer;
 }
-
-.modal_content h2 {
-    margin-left: 30%;
+.pagination_button.active {
+    background-color: orange;
+    color: white;
 }
-

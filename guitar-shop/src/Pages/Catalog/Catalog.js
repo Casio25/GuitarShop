@@ -1,6 +1,6 @@
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FilterBlock from "../../components/Filter/Filter";
 import filteredDataStore from "../../store/FilteredDataStore";
 import ShoppingCartStore from "../../store/ShoppingCartStore";
@@ -8,7 +8,7 @@ import cart_icon from "../../assets/icons/cart_icon.png"
 import SortBlock from "../../components/Sort/Sort.js";
 import "./Catalog.css";
 import Modal from "../../components/MoreInfo/MoreInfo";
-import { cardsPerPage, startPage } from "../../components/variables";
+import { cardsPerPage, numberOfOffers, startPage } from "../../components/variables";
 
 const Catalog = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,9 +18,7 @@ const Catalog = () => {
         rating: null,
     });
     const [currentPage, setCurrentPage] = useState(startPage);
-    
-
-    
+    const [arrOfCurrPages, setArrOfCurrPages] = useState([])
 
     function addToShoppingCart(filteredData) {
         ShoppingCartStore.addToShoppingCart(filteredData);
@@ -36,6 +34,40 @@ const Catalog = () => {
     const currentCards = toJS(filteredDataStore.currentProductList).slice(indexOfFirstCard, indexOfLastCard);
 
     const totalPages = Math.ceil(toJS(filteredDataStore.currentProductList).length / cardsPerPage);
+    
+    const dots = "...";
+
+    useEffect(() => {
+        let tempNumberOfPages = totalPages;
+        const dots = "...";
+
+        if (totalPages > 7) {
+            const currentPageIndex = currentPage - 1;
+
+            let visiblePages = [1];
+
+            if (currentPageIndex > 3) {
+                visiblePages.push(dots);
+            }
+
+            const minPageIndex = Math.max(currentPageIndex - 2, 2);
+            const maxPageIndex = Math.min(currentPageIndex + 2, totalPages - 1);
+
+            for (let i = minPageIndex; i <= maxPageIndex; i++) {
+                visiblePages.push(i);
+            }
+
+            if (maxPageIndex < totalPages - 1) {
+                visiblePages.push(dots);
+            }
+
+            visiblePages.push(totalPages);
+
+            tempNumberOfPages = visiblePages;
+        }
+
+        setArrOfCurrPages(tempNumberOfPages);
+    }, [currentPage, totalPages]);
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -46,46 +78,45 @@ const Catalog = () => {
             <SortBlock />
             <div className="container">
                 <div className="filter_block">
-                    <FilterBlock /> 
+                    <FilterBlock />
                 </div>
-            
-            <div className="guitar_catalog">
-                {currentCards.map((filteredData, index) => (
-                    <div className="guitar_card" key={index}>
-                        <img className="guitar_image" src={filteredData.photo} alt="photo" />
-                        <p className="guitar_name">{filteredData.guitarName}</p>
-                        <p className="guitar_price">{filteredData.price}</p>
-                        <p className="guitar-rating">
-                            {Array.from({ length: filteredData.rating }, (_, index) => (
-                                <span className="star_rating" key={index}>
-                                    &#9733;
-                                </span>
-                            ))}
-                        </p>
-                        <div className="guitar_buttons">
-                            <button className="button_more_info" onClick={() => ModalMoreInfo(filteredData)}>
-                                Інформація
-                            </button>
-                            <button className="button_buy" onClick={() => addToShoppingCart(filteredData)}>
-                                <img className="cart_icon" src={cart_icon} alt="cart_icon" />
-                                Купити
-                            </button>
+                <div className="guitar_catalog">
+                    {currentCards.map((filteredData, index) => (
+                        <div className="guitar_card" key={index}>
+                            <img className="guitar_image" src={filteredData.photo} alt="photo" />
+                            <p className="guitar_name">{filteredData.guitarName}</p>
+                            <p className="guitar_price">{filteredData.price}</p>
+                            <p className="guitar-rating">
+                                {Array.from({ length: filteredData.rating }, (_, index) => (
+                                    <span className="star_rating" key={index}>
+                                        &#9733;
+                                    </span>
+                                ))}
+                            </p>
+                            <div className="guitar_buttons">
+                                <button className="button_more_info" onClick={() => ModalMoreInfo(filteredData)}>
+                                    Інформація
+                                </button>
+                                <button className="button_buy" onClick={() => addToShoppingCart(filteredData)}>
+                                    <img className="cart_icon" src={cart_icon} alt="cart_icon" />
+                                    Купити
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
             </div>
             <Modal active={isModalOpen} setActive={setIsModalOpen} product={selectedProduct} />
 
             <div className="pagination">
-                {Array.from({ length: totalPages }, (_, index) => (
+                {arrOfCurrPages.map((page, index) => (
+                    
                     <button
                         key={index}
-                        currentPageValue = {index + 1}
-                        className={`pagination_button ${currentPage === index + 1 ? "active" : ""}`}
-                        onClick={() => goToPage(index + 1)}
+                        className={`pagination_button ${currentPage === page ? "active" : ""}`}
+                        onClick={() => goToPage(page)}
                     >
-                        {index + 1}
+                        {page === "..." ? dots : page}
                     </button>
                 ))}
             </div>
@@ -96,7 +127,7 @@ const Catalog = () => {
 export default observer(Catalog);
 
 
+
 // add mobx for selectedProduct //
 
 //rename filtereddata for modal //
-//add currentPagevalue//
