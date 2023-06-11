@@ -9,6 +9,7 @@ import SortBlock from "../../components/Sort/Sort.js";
 import "./Catalog.css";
 import Modal from "../../components/MoreInfo/MoreInfo";
 import { cardsPerPage, numberOfOffers, startPage } from "../../components/variables";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Catalog = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ const Catalog = () => {
         rating: null,
     });
     const [currentPage, setCurrentPage] = useState(startPage);
-    const [arrOfCurrPages, setArrOfCurrPages] = useState([])
+    const [arrOfCurrPages, setArrOfCurrPages] = useState([]);
 
     function addToShoppingCart(filteredData) {
         ShoppingCartStore.addToShoppingCart(filteredData);
@@ -34,40 +35,8 @@ const Catalog = () => {
     const currentCards = toJS(filteredDataStore.currentProductList).slice(indexOfFirstCard, indexOfLastCard);
 
     const totalPages = Math.ceil(toJS(filteredDataStore.currentProductList).length / cardsPerPage);
-    
-    const dots = "...";
 
-    useEffect(() => {
-        let tempNumberOfPages = totalPages;
-        const dots = "...";
-
-        if (totalPages > 7) {
-            const currentPageIndex = currentPage - 1;
-
-            let visiblePages = [1];
-
-            if (currentPageIndex > 3) {
-                visiblePages.push(dots);
-            }
-
-            const minPageIndex = Math.max(currentPageIndex - 2, 2);
-            const maxPageIndex = Math.min(currentPageIndex + 2, totalPages - 1);
-
-            for (let i = minPageIndex; i <= maxPageIndex; i++) {
-                visiblePages.push(i);
-            }
-
-            if (maxPageIndex < totalPages - 1) {
-                visiblePages.push(dots);
-            }
-
-            visiblePages.push(totalPages);
-
-            tempNumberOfPages = visiblePages;
-        }
-
-        setArrOfCurrPages(tempNumberOfPages);
-    }, [currentPage, totalPages]);
+   
 
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -109,25 +78,20 @@ const Catalog = () => {
             <Modal active={isModalOpen} setActive={setIsModalOpen} product={selectedProduct} />
 
             <div className="pagination">
-                {arrOfCurrPages.map((page, index) => (
-                    
+                {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index}
-                        className={`pagination_button ${currentPage === page ? "active" : ""}`}
-                        onClick={() => goToPage(page)}
+                        className={`pagination_button ${currentPage === index + 1 ? "active" : ""}`}
+                        onClick={() => goToPage(index + 1)}
                     >
-                        {page === "..." ? dots : page}
+                        {index + 1}
                     </button>
                 ))}
             </div>
+            <Pagination totalPages={totalPages} currentPage={currentPage} goToPage={goToPage} />
+
         </>
     );
 };
 
 export default observer(Catalog);
-
-
-
-// add mobx for selectedProduct //
-
-//rename filtereddata for modal //
