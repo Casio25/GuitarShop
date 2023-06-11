@@ -98,44 +98,27 @@ const filteredDataStore = observable({
     },
 
 
-
     applyFilter(data) {
         return data.filter((item) => {
-            console.log('filterArray:', this.filterArray);
-            console.log('item.price:', item.price);
-
             const itemPrice = parseFloat(item.price);
+            const { type, string, price } = this.filterArray;
 
-            if (
-                this.filterArray.type &&
-                this.filterArray.type.length &&
-                item.type &&
-                !this.filterArray.type.includes(item.type)
-            ) 
+            if (type?.length && !type.includes(item.type))
                 return false;
-             if (
-                this.filterArray.string &&
-                this.filterArray.string.length &&
-                item.string &&
-                !this.filterArray.string.includes(item.string.toString())
-            ) 
+
+            if (string?.length && !string.includes(item.string?.toString()))
                 return false;
-             if (
-                this.filterArray.price.minPrice !== undefined &&
-                itemPrice < this.filterArray.price.minPrice
-            ) 
+
+            if (price.minPrice !== undefined && itemPrice < price.minPrice)
                 return false;
-             if (
-                this.filterArray.price.maxPrice !== undefined &&
-                itemPrice > this.filterArray.price.maxPrice
-            )
+
+            if (price.maxPrice !== undefined && itemPrice > price.maxPrice)
                 return false;
-            
 
             return true;
-
         });
     },
+
 
 
 
