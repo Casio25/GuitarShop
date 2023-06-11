@@ -8,50 +8,6 @@ import * as variables from "../variables.js";
 import "./Filter.css"
 
 const FilterBlock = () => {
-    const [isTypeChecked, setIsTypeChecked] = useState({
-        ukulele: false,
-        electro: false,
-        acustic: false,
-    });
-    const [filterArray, setFilterArray] = useState({
-        type: [],
-        string: [],
-    });
-    
-
-    const stringOptions = {
-        ukulele: ["4"],
-        acustic: ["6", "7", "12"],
-        electro: ["4", "6", "7"],
-    };
-
-
-    function priceFilter(e, filterType) {
-        const priceValue = e.target.value;
-
-        setFilterArray((prevState) => {
-            const updatedFilterArray = { ...prevState };
-            if (priceValue) {
-                updatedFilterArray[filterType] = Number(priceValue);
-            } else {
-                delete updatedFilterArray[filterType];
-            }
-            const { minPrice, maxPrice } = updatedFilterArray
-            if (
-                minPrice !== undefined &&
-                maxPrice !== undefined &&
-                minPrice > maxPrice
-            ) {
-                console.log("minPrice cannot be greater than maxPrice");
-                return prevState;
-            } else {
-                return updatedFilterArray;
-            }
-        });
-    }
-
-
-
 
 
     useEffect(() => {
