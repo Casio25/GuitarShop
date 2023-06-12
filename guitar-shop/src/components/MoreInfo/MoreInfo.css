@@ -27,5 +27,36 @@
 }
 
 .modal_content h2 {
-    margin-left: 30%;
+    margin-left: 10%;
+}
+
+.guitar_info {
+    display: flex;
+    align-items: center;
+    /* Align items vertically */
+}
+
+button {
+    cursor: pointer;
+        border: none;
+        border-radius: 2px;
+        margin-right: 10px;
+        /* Increase the margin-right to increase the distance between buttons */
+        padding: 8px 12px;
+        /* Adjust the padding values to change the button size */
+        font-size: 14px;
+        /* Adjust the font-size to change the button text size */
+}
+.modal_buy_button {
+    color: white;
+    background-color: orange;
+}
+
+.load_comments {
+    color: white;
+    background-color: #C1C1C1;
+}
+.close_comments {
+    color: white;
+    background-color: rgb(210, 95, 95);
 }
