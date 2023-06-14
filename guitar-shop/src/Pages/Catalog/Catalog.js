@@ -77,7 +77,7 @@ const Catalog = () => {
             </div>
             <Modal active={isModalOpen} setActive={setIsModalOpen} product={selectedProduct} />
 
-            <div className="pagination">
+            {/* <div className="pagination">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index}
@@ -87,7 +87,7 @@ const Catalog = () => {
                         {index + 1}
                     </button>
                 ))}
-            </div>
+            </div> */}
             <Pagination totalPages={totalPages} currentPage={currentPage} goToPage={goToPage} />
 
         </>

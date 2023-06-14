@@ -27,11 +27,13 @@ const FilterBlock = () => {
                 <div className="price_range">
                     <input
                         type="number"
+                        className="min_price"
                         placeholder="Min Price"  
                         onChange={(e) => filteredDataStore.priceFilter(e, 'minPrice')}
                     />
                     <input
                         type="number"
+                        className="max_price"
                         placeholder="Max Price"
                         onChange={(e) => filteredDataStore.priceFilter(e, 'maxPrice')}
                     />

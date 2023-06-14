@@ -3,6 +3,10 @@ import { toJS } from "mobx";
 import { useEffect, useState } from "react";
 import filteredDataStore from "../../store/FilteredDataStore";
 import "./Sort.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+
+
 
 const SortBlock = () => {
     const [sortType, setSortType] = useState();
@@ -37,20 +41,19 @@ const SortBlock = () => {
                     </p>
                 </div>
                 <div className="sort_dynamic">
-                    <p
+                    <FontAwesomeIcon icon={faAngleUp} size="xl"
                         className={`sort_up_button ${sortDirection === "up" ? "active" : ""}`}
                         value="up"
                         onClick={() => setSortDirection("up")}
-                    >
-                        up
-                    </p>
-                    <p
+                        />
+                        
+                    
+                    <FontAwesomeIcon icon={faAngleUp} rotation={180} size="xl" 
                         className={`sort_down_button ${sortDirection === "down" ? "active" : ""}`}
                         value="down"
                         onClick={() => setSortDirection("down")}
-                    >
-                        down
-                    </p>
+                    />
+                    
                 </div>
             </div>
 

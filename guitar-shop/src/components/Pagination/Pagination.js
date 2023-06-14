@@ -1,4 +1,4 @@
-import React from "react";
+import "./Pagination.css"
 
 const Pagination = ({ totalPages, currentPage, goToPage }) => {
     const maxDisplayedPages = 5; // Maximum number of pages to display excluding ellipsis
@@ -25,7 +25,7 @@ const Pagination = ({ totalPages, currentPage, goToPage }) => {
 
     // Add the ellipsis if necessary
     if (startPage > 1) {
-        pages.push(<span key="ellipsis1" className="pagination_ellipsis">...</span>);
+        pages.push(<button key="ellipsis1" className="pagination_ellipsis">...</button>);
     }
 
     // Add the page buttons
@@ -43,7 +43,7 @@ const Pagination = ({ totalPages, currentPage, goToPage }) => {
 
     // Add the ellipsis if necessary
     if (endPage < totalPages) {
-        pages.push(<span key="ellipsis2" className="pagination_ellipsis">...</span>);
+        pages.push(<button key="ellipsis2" className="pagination_ellipsis">...</button>);
     }
 
     // Add the next page button
