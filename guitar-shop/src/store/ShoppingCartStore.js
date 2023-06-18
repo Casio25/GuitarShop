@@ -12,9 +12,31 @@ const ShoppingCartStore = observable({
     },
 
     addToShoppingCart(data) {
-        this.ShoppingCart.push(data);
-        this.saveToLocalStorage(); 
+        const existingItem = this.ShoppingCart.find(item => item.id === data.id);
+        if (existingItem) {
+            if (existingItem.quantity < 20) {
+                existingItem.quantity += 1;
+            } else {
+                console.log("Quantity limit reached");
+            }
+        } else {
+            data.quantity = 1;
+            this.ShoppingCart.push(data);
+        }
+        this.saveToLocalStorage();
     },
+
+    
+    quantityControl(data, type) {
+        const existingItem = this.ShoppingCart.find(item => item.id === data.id);
+        if (type === "add" && existingItem.quantity < 20) {
+            existingItem.quantity += 1;
+        } else if (type === "remove" && existingItem.quantity > 1) {
+            existingItem.quantity -= 1;
+        }
+        this.saveToLocalStorage();
+    },
+
 
     saveToLocalStorage() {
         const data = JSON.stringify(this.ShoppingCart);

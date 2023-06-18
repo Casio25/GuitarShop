@@ -38,7 +38,7 @@ export const Header = () => {
             
         </div>
         <div className="image_header">
-            <img className="image_guitar_header" src={image_guitar_header} alt="image_guitar_header"/>
+            
         </div>
         <Modal active={modalActive} setActive={setModalActive}/>
         </>

@@ -1,6 +1,6 @@
 import { toJS } from "mobx";
 import { observer } from "mobx-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FilterBlock from "../../components/Filter/Filter";
 import filteredDataStore from "../../store/FilteredDataStore";
 import ShoppingCartStore from "../../store/ShoppingCartStore";
@@ -10,6 +10,9 @@ import "./Catalog.css";
 import Modal from "../../components/MoreInfo/MoreInfo";
 import { cardsPerPage, numberOfOffers, startPage } from "../../components/variables";
 import Pagination from "../../components/Pagination/Pagination";
+import acustic from "../../assets/images/acustic.png";
+import electro from "../../assets/images/electro.png";
+import ukulele from "../../assets/images/ukulele.png";
 
 const Catalog = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,15 +22,32 @@ const Catalog = () => {
         rating: null,
     });
     const [currentPage, setCurrentPage] = useState(startPage);
-    const [arrOfCurrPages, setArrOfCurrPages] = useState([]);
 
     function addToShoppingCart(filteredData) {
         ShoppingCartStore.addToShoppingCart(filteredData);
+        console.log(toJS(ShoppingCartStore.ShoppingCart))
     }
 
     function ModalMoreInfo(filteredData) {
         setSelectedProduct(filteredData);
         setIsModalOpen(true);
+    }
+
+    function imageSrc(data) {
+        switch (data) {
+            case "acustic.png":
+                return acustic;
+                break;
+            case "ukulele.png":
+                return ukulele;
+                break;
+            case "electro.png":
+                return electro;
+                break
+
+            default:
+                return ''
+        }
     }
 
     const indexOfLastCard = currentPage * cardsPerPage;
@@ -52,7 +72,7 @@ const Catalog = () => {
                 <div className="guitar_catalog">
                     {currentCards.map((filteredData, index) => (
                         <div className="guitar_card" key={index}>
-                            <img className="guitar_image" src={filteredData.photo} alt="photo" />
+                            <img className="guitar_image" src={imageSrc(filteredData.photo)} alt="photo" />
                             <p className="guitar_name">{filteredData.guitarName}</p>
                             <p className="guitar_price">{filteredData.price}</p>
                             <p className="guitar-rating">

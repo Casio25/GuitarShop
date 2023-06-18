@@ -20,7 +20,7 @@ const Modal = ({ active, setActive, product }) => {
     return (
         <>
             <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
-                <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+                <div className="modal_more_info_content" onClick={(e) => e.stopPropagation()}>
                     <h2>Додати товар до кошику</h2>
                     <div className="guitar_info">
                         <h3 className="modal_name">{product.guitarName}</h3>

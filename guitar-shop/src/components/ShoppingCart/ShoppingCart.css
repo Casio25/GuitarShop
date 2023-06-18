@@ -2,6 +2,7 @@
     opacity: 1;
     pointer-events: all;
     transform: scale(1);
+    z-index: 4;
 }
 
 .modal {
@@ -19,7 +20,8 @@
 .modal_content {
     background-color: white;
     padding: 20px;
-    max-width: 400px;
+    margin-top: 70px;
+    max-width: 500px;
     width: 100%;
     /* Adjust the desired width */
     max-height: 80%;
@@ -28,7 +30,7 @@
 }
 
 .modal_content h2 {
-    margin-left: 30%;
+    margin-left: 0%;
 }
 
 
@@ -59,4 +61,51 @@
         /* Adjust the font-size to change the button text size */
     color: white;
     background-color: #C1C1C1;
+}
+
+
+.quantityBlock {
+    display: flex;
+    align-items: center;
+    /* Align buttons vertically */
+}
+
+.quantityBlock button {
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    /* Make the buttons circular */
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    font-size: 18px;
+    /* Decrease font size for better fit */
+    color: white;
+    background-color: rgb(130, 178, 251);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    /* Add a smooth transition effect */
+}
+
+.quantityBlock button:hover {
+    background-color: rgb(90, 158, 246);
+    /* Lighter background color on hover */
+}
+
+.quantityBlock p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 10px;
+    /* Add spacing between the buttons and quantity */
+}
+
+.add_quantity.disabled,
+.remove_quantity.disabled {
+    background-color: gray;
+    /* Change the background color to gray */
+    cursor: not-allowed;
+    /* Change the cursor to not-allowed */
 }

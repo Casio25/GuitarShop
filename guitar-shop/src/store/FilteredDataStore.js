@@ -1,11 +1,19 @@
 
 import { observable } from "mobx";
 import { toJS } from "mobx";
+import {useQuery} from 'react-query'
 import { offers } from "../components/FakeData";
+
+const fetchData = async () => {
+    const response = await fetch('http://localhost:4000/catalog');
+    const data = await response.json();
+    return data;
+}
 
 const filteredDataStore = observable({
     initialData: offers,
     currentProductList: offers,
+
 
     typeChecked : {
         ukulele: false,
@@ -150,6 +158,17 @@ const filteredDataStore = observable({
 });
 
 export default filteredDataStore;
+
+
+// Separate React function component
+export function DataFetcher() {
+    const { data: initialData } = useQuery("initialData", fetchData);
+
+    filteredDataStore.initialData = initialData || offers;
+    filteredDataStore.currentProductList = initialData || offers;
+
+    return null; // or any JSX if needed
+}
 
 
 // add all filter functions and logic to store //
