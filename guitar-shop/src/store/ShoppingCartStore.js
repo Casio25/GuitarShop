@@ -22,6 +22,7 @@ const ShoppingCartStore = observable({
         } else {
             data.quantity = 1;
             this.ShoppingCart.push(data);
+            console.log(ShoppingCartStore.ShoppingCart)
         }
         this.saveToLocalStorage();
     },

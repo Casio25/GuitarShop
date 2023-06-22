@@ -1,0 +1,35 @@
+.OrderBlock {
+    display: flex;
+}
+
+.order_card {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.order_card p {
+    margin-left: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.order_photo {
+    width: auto;
+    height: 90px;
+    border-radius: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.order_summary {
+    margin-left: 100px;
+}
+
+.order_card:hover {
+    background-color: #ebebeb;
+}

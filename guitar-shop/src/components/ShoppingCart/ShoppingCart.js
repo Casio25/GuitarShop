@@ -1,8 +1,11 @@
 import { observer } from "mobx-react-lite";
+import { NavLink } from 'react-router-dom';
+
+
 import ShoppingCartStore from "../../store/ShoppingCartStore";
 import "./ShoppingCart.css"
 
-    const Modal = ({ active, setActive, product }) => {
+    const Modal = ({ active, setActive, order }) => {
         
 
 
@@ -34,6 +37,7 @@ import "./ShoppingCart.css"
                                 </div>
                             ))}
                         </div>
+                        <NavLink className="order_button" to='/orderpage' onClick={() => setActive(false)} order={(ShoppingCartStore.ShoppingCart)}><button> Оформити замовлення</button> </NavLink>
 
                     </div>
 

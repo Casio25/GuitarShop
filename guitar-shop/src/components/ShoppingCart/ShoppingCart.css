@@ -109,3 +109,7 @@
     cursor: not-allowed;
     /* Change the cursor to not-allowed */
 }
+.order_button button{
+    font-size: 20px;
+    background-color: rgb(90, 158, 246)
+}
