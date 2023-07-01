@@ -2,9 +2,29 @@ import { useState } from "react";
 import ShoppingCartStore from "../../store/ShoppingCartStore";
 import cart_icon from "../../assets/icons/cart_icon.png"
 import "./MoreInfo.css"
+import acustic from "../../assets/images/acustic.png";
+import electro from "../../assets/images/electro.png";
+import ukulele from "../../assets/images/ukulele.png";
 
 const Modal = ({ active, setActive, product }) => {
     const [commentStatus, setCommentStatus] = useState(false)
+
+    function imageSrc(data) {
+        switch (data) {
+            case "acustic.png":
+                return acustic;
+                break;
+            case "ukulele.png":
+                return ukulele;
+                break;
+            case "electro.png":
+                return electro;
+                break
+
+            default:
+                return ''
+        }
+    }
 
     function loadComments() {
         if (!commentStatus) {
@@ -24,7 +44,7 @@ const Modal = ({ active, setActive, product }) => {
                     <h2>Додати товар до кошику</h2>
                     <div className="guitar_info">
                         <h3 className="modal_name">{product.guitarName}</h3>
-                        <img className="modal_image" src={product.photo} alt="photo" />
+                        <img className="modal_image" src={imageSrc(product.photo)} alt="photo" />
                         <button className="modal_buy_button" onClick={() => addToShoppingCart(product)}>
                             <img className="cart_icon" src={cart_icon} alt="cart_icon" />
                             Купити</button>

@@ -10,16 +10,17 @@ import OrderModal from "../../components/OrderModal/OrderModal";
 const OrderPage = () => {
     const [modalActive, setModalActive] = useState(false)
 
-    function imageToSrc(data) {
+
+    function imageSrc(data) {
         switch (data) {
-            case acustic:
-                return "acustic.png";
+            case "acustic.png":
+                return acustic;
                 break;
-            case ukulele:
-                return "ukulele.png";
+            case "ukulele.png":
+                return ukulele;
                 break;
-            case electro:
-                return 'electro.png';
+            case "electro.png":
+                return electro;
                 break
 
             default:
@@ -53,7 +54,7 @@ const OrderPage = () => {
                         <p>{orderData.id}</p>
                         <p>Кількість: {orderData.quantity}</p>
                         <p>Ціна: {orderData.price * orderData.quantity}</p>
-                        <img className="order_photo" src={(orderData.photo)} alt="photo" />
+                        <img className="order_photo" src={imageSrc(orderData.photo)} alt="photo" />
                     </div>
                 ))}
             </div>
@@ -63,7 +64,7 @@ const OrderPage = () => {
                 <button onClick={()=>setModalActive(true)}>Confirm Order</button>
             </div>
         </div>
-            <OrderModal active={modalActive} setActive={setModalActive} />
+            <OrderModal active={modalActive} setActive={setModalActive} order={ShoppingCartStore.ShoppingCart}/>
         </>
     )
 }
