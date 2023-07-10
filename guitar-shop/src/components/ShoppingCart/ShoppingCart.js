@@ -1,4 +1,5 @@
 import { observer } from "mobx-react-lite";
+import {toJS} from "mobx";
 import { NavLink } from 'react-router-dom';
 import acustic from "../../assets/images/acustic.png";
 import electro from "../../assets/images/electro.png";
@@ -57,7 +58,7 @@ import "./ShoppingCart.css"
                                 </div>
                             ))}
                         </div>
-                        <NavLink className="order_button" to='/orderpage' onClick={() => setActive(false)} order={(ShoppingCartStore.ShoppingCart)}><button> Оформити замовлення</button> </NavLink>
+                        <NavLink className="order_button" to='/orderpage' onClick={() => {setActive(false); console.log(toJS(ShoppingCartStore.ShoppingCart))}} order={(ShoppingCartStore.ShoppingCart)}><button> Оформити замовлення</button> </NavLink>
 
                     </div>
 

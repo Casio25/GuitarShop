@@ -1,5 +1,6 @@
 import { toJS } from "mobx";
 import { useState } from "react";
+import { IBackendOrder } from "../../utils/interface/IFinalOrder";
 import "./OrderModal.css";
 
 const OrderModal = ({ active, setActive, order }) => {
@@ -9,24 +10,24 @@ const OrderModal = ({ active, setActive, order }) => {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
 
-    const handleNameChange = (event) => {
+    const handleNameChange = (event: any) => {
         setName(event.target.value);
     };
 
-    const handlePhoneNumberChange = (event) => {
+    const handlePhoneNumberChange = (event: any) => {
         setPhoneNumber(event.target.value);
     };
 
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: any) => {
         setEmail(event.target.value);
     };
 
-    const validatePhoneNumber = (phoneNumber) => {
+    const validatePhoneNumber = (phoneNumber: string) => {
         let re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
         return re.test(phoneNumber);
     };
 
-    function validateEmail(email) {
+    function validateEmail(email: string) {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -35,7 +36,7 @@ const OrderModal = ({ active, setActive, order }) => {
 
 
 
-    const postData = (data) => {
+    const postData = (data: IBackendOrder) => {
         fetch("http://localhost:4000/order", {
             method: "POST",
             headers: {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
@@ -59,16 +60,17 @@ const OrderModal = ({ active, setActive, order }) => {
         }));
 
         const totalPrice = order.reduce(
-            (accumulator, orderObject) => accumulator + orderObject.price * orderObject.quantity,
+            (accumulator: number, orderObject) => accumulator + orderObject.price * orderObject.quantity,
             0
         );
 
-        const backendOrder = {
+        const backendOrder: IBackendOrder = {
             items: items,
             userName: name, 
             userPhoneNumber: phoneNumber,
             userEmail: email,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
+            date: (new Date(Date.now())).toString()
         };
 
         console.log(backendOrder);
