@@ -1,12 +1,13 @@
-import "./Header.css"
+import "./Header.css";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import MainLogo from "../../assets/logos/MainLogo.png"
-import icon_map from "../../assets/icons/icon_map.png"
-import icon_search from "../../assets/icons/icon_search.png"
-import icon_basket from "../../assets/icons/icon_basket.png"
-import image_guitar_header from "../../assets/images/image_guitar_header.png"
-import Modal from "../../components/ShoppingCart/ShoppingCart.js"
+import React from "react";
+import MainLogo from "../../assets/logos/MainLogo.png";
+import icon_map from "../../assets/icons/icon_map.png";
+import icon_search from "../../assets/icons/icon_search.png";
+import icon_basket from "../../assets/icons/icon_basket.png";
+import Modal from "../ShoppingCart/ShoppingCart.js";
+
 
 export const Header = () => {
     const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
