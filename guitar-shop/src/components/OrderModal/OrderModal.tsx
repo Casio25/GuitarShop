@@ -1,24 +1,33 @@
 import { toJS } from "mobx";
+import React from "react";
+import { ChangeEvent } from "react";
 import { useState } from "react";
 import { IBackendOrder } from "../../utils/interface/IFinalOrder";
+import { IOrderItem } from "../../utils/interface/IOrderItem";
 import "./OrderModal.css";
 
-const OrderModal = ({ active, setActive, order }) => {
+interface OrderModalProps {
+    active: boolean;
+    setActive: (value: boolean) => void;
+    order: IOrderItem[];
+}
+
+const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [phoneNumberError, setPhoneNumberError] = useState("");
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
 
-    const handleNameChange = (event: any) => {
+    const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
 
-    const handlePhoneNumberChange = (event: any) => {
+    const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
         setPhoneNumber(event.target.value);
     };
 
-    const handleEmailChange = (event: any) => {
+    const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
 
@@ -52,15 +61,15 @@ const OrderModal = ({ active, setActive, order }) => {
 
 
     //creating backend order//
-    const orderBackendInfo = (order) => {
-        const items = order.map((orderObject) => ({
+    const orderBackendInfo = (order: IOrderItem[]) => {
+        const items = order.map((orderObject: IOrderItem) => ({
             id: orderObject.id,
             price: orderObject.price,
             quantity: orderObject.quantity
         }));
 
         const totalPrice = order.reduce(
-            (accumulator: number, orderObject) => accumulator + orderObject.price * orderObject.quantity,
+            (accumulator: number, orderObject:IOrderItem) => accumulator + orderObject.price * orderObject.quantity,
             0
         );
 
