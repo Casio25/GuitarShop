@@ -1,17 +1,17 @@
 import { observer } from "mobx-react-lite";
+import React from "react";
 import {toJS} from "mobx";
 import { NavLink } from 'react-router-dom';
 import acustic from "../../assets/images/acustic.png";
 import electro from "../../assets/images/electro.png";
 import ukulele from "../../assets/images/ukulele.png";
-
-
-import ShoppingCartStore from "../../store/ShoppingCartStore";
+import { ShoppingCartModalProps } from "../../utils/interface/IShoppingCart";
+import ShoppingCartStore from "../../store/ShoppingCartStore.js";
 import "./ShoppingCart.css"
 
-    const Modal = ({ active, setActive, order }) => {
+    const Modal = ({ active, setActive, order }: ShoppingCartModalProps) => {
 
-        function imageSrc(data) {
+        function imageSrc(data: string) {
             switch (data) {
                 case "acustic.png":
                     return acustic;
@@ -58,7 +58,7 @@ import "./ShoppingCart.css"
                                 </div>
                             ))}
                         </div>
-                        <NavLink className="order_button" to='/orderpage' onClick={() => {setActive(false); console.log(toJS(ShoppingCartStore.ShoppingCart))}} order={(ShoppingCartStore.ShoppingCart)}><button> Оформити замовлення</button> </NavLink>
+                        <NavLink className="order_button" to='/orderpage' onClick={() => setActive(false)} order={(ShoppingCartStore.ShoppingCart)}><button> Оформити замовлення</button> </NavLink>
 
                     </div>
 

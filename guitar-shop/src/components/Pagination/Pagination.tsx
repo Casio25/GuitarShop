@@ -1,6 +1,12 @@
 import "./Pagination.css"
+import React from "react";
+interface IPages {
+    totalPages: number;
+    currentPage: number;
+    goToPage: (page: number) => void;
+}
 
-const Pagination = ({ totalPages, currentPage, goToPage }) => {
+const Pagination = ({ totalPages, currentPage, goToPage }: IPages) => {
     const maxDisplayedPages = 5; // Maximum number of pages to display excluding ellipsis
 
     // Calculate the range of page numbers to display
@@ -49,7 +55,11 @@ const Pagination = ({ totalPages, currentPage, goToPage }) => {
     // Add the next page button
     if (currentPage < totalPages) {
         pages.push(
-            <button key="next" className="pagination_button" onClick={() => goToPage(currentPage + 1)}>
+            <button
+                key="next"
+                className="pagination_button"
+                onClick={() => goToPage(currentPage + 1)} 
+            >
                 &gt;
             </button>
         );
