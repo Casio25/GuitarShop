@@ -9,7 +9,27 @@ import { ShoppingCartModalProps } from "../../utils/interface/IShoppingCart";
 import ShoppingCartStore from "../../store/ShoppingCartStore.js";
 import "./ShoppingCart.css"
 
-    const Modal = ({ active, setActive, order }: ShoppingCartModalProps) => {
+interface IFilteredData {
+    guitarName: string;
+    photo: string;
+    rating: number;
+    price: number;
+    comments: [];
+}
+
+interface ISelectedProduct {
+    guitarName: string;
+    photo: string;
+    quantity: number;
+}
+
+interface IOrderModalProps {
+    active: boolean;
+    setActive: (value: boolean) => void;
+    order: ISelectedProduct;
+}
+
+    const Modal = ({ active, setActive, order }: IOrderModalProps) => {
 
         function imageSrc(data: string) {
             switch (data) {
@@ -39,7 +59,7 @@ import "./ShoppingCart.css"
                     <div className="modal_content" onClick={(e) => e.stopPropagation()}>
                         <h2>Кошик</h2>
                         <div className="store">
-                            {ShoppingCartStore.ShoppingCart.map((product) =>(
+                            {ShoppingCartStore.ShoppingCart.map((product: ISelectedProduct) =>(
                                 <div className="cart_element">
                                     <img className="cart_product_image" src={imageSrc(product.photo)} alt="product_image" /> 
                                     <p>{product.guitarName} </p>
@@ -58,7 +78,7 @@ import "./ShoppingCart.css"
                                 </div>
                             ))}
                         </div>
-                        <NavLink className="order_button" to='/orderpage' onClick={() => setActive(false)} order={(ShoppingCartStore.ShoppingCart)}><button> Оформити замовлення</button> </NavLink>
+                        <NavLink className="order_button" to='/orderpage' ><button onClick={() => setActive(false)} order={(ShoppingCartStore.ShoppingCart)}> Оформити замовлення</button> </NavLink>
 
                     </div>
 

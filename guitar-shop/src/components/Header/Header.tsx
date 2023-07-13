@@ -6,7 +6,7 @@ import MainLogo from "../../assets/logos/MainLogo.png";
 import icon_map from "../../assets/icons/icon_map.png";
 import icon_search from "../../assets/icons/icon_search.png";
 import icon_basket from "../../assets/icons/icon_basket.png";
-import Modal from "../ShoppingCart/ShoppingCart.js";
+import Modal from "../ShoppingCart/ShoppingCart";
 
 
 export const Header = () => {

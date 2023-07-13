@@ -2,10 +2,11 @@ import { observer } from "mobx-react";
 import { flowResult, toJS } from "mobx";
 import { useState, useEffect } from "react";
 import MainLogo from "../../assets/logos/MainLogo.png";
-import { offers } from "../../components/FakeData";
-import filteredDataStore from "../../store/FilteredDataStore";
+import { offers } from "../FakeData.js";
+import filteredDataStore from "../../store/FilteredDataStore.js";
 import * as variables from "../variables.js";
 import "./Filter.css"
+import React from "react";
 
 const FilterBlock = () => {
 
@@ -40,7 +41,7 @@ const FilterBlock = () => {
                 </div>
                 <form className="filter_checkboxes">
                     <fieldset className="filter_values">
-                        {variables.typeList.map((type, index) => (
+                        {variables.typeList.map((type: string, index: number) => (
                             <div key={index}>
                                 <input
                                     type="checkbox"
