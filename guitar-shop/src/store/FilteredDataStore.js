@@ -2,7 +2,7 @@
 import { observable } from "mobx";
 import { toJS } from "mobx";
 import {useQuery} from 'react-query'
-import { offers } from "../components/FakeData";
+import { offers } from "../components/FakeData.js";
 
 const fetchData = async () => {
     const response = await fetch('http://localhost:4000/catalog');

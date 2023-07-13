@@ -11,7 +11,9 @@ interface ISelectedProduct {
     guitarName: string;
     photo: string;
     quantity: number;
+    id: string;
 }
+
 
 interface IOrderModalProps {
     active: boolean;
