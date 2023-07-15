@@ -6,6 +6,7 @@ import electro from "../../assets/images/electro.png";
 import ukulele from "../../assets/images/ukulele.png";
 import ShoppingCartStore from "../../store/ShoppingCartStore.js";
 import "./ShoppingCart.css";
+import { Button, Stack } from '@mui/material'
 
 interface ISelectedProduct {
     guitarName: string;
@@ -22,6 +23,9 @@ interface IOrderModalProps {
 }
 
 const Modal = ({ active, setActive, order }: IOrderModalProps) => {
+    const IsEmpty = ShoppingCartStore.ShoppingCart.length
+
+
     function imageSrc(data: string) {
         switch (data) {
             case "acustic.png":
@@ -63,18 +67,27 @@ const Modal = ({ active, setActive, order }: IOrderModalProps) => {
                                         +
                                     </button>
                                 </div>
-                                <button
-                                    className="remove_button"
-                                    onClick={() => ShoppingCartStore.removeFromShoppingCart(product)}
-                                >
-                                    Видалити
-                                </button>
+                                <Stack>
+                                    <Button
+                                        variant="contained"
+                                        color='error'
+                                        className="remove_button"
+                                        onClick={() => {
+                                            ShoppingCartStore.removeFromShoppingCart(product);
+                                            console.log(ShoppingCartStore.ShoppingCart.length);
+                                        }}
+                                    >
+                                        Видалити
+                                    </Button>
+                                </Stack>
                             </div>
                         ))}
                     </div>
-                    <NavLink className="order_button" to="/orderpage" onClick={() => setActive(false)}>
-                        <button>Оформити замовлення</button>
-                    </NavLink>
+                    {!!IsEmpty && (<>
+                        <NavLink className="order_button" to="/orderpage" onClick={() => setActive(false)}>
+                            <button>Оформити замовлення</button>
+                        </NavLink>
+                    </>)}
                 </div>
             </div>
         </>

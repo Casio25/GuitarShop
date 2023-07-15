@@ -1,5 +1,6 @@
 import "./Pagination.css"
 import React from "react";
+
 interface IPages {
     totalPages: number;
     currentPage: number;

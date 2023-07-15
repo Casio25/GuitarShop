@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import filteredDataStore from "../../store/FilteredDataStore.js";
 import "./Sort.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faAngleUp } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+
 
 
 

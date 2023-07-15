@@ -7,6 +7,8 @@ import "./MoreInfo.css";
 import acustic from "../../assets/images/acustic.png";
 import electro from "../../assets/images/electro.png";
 import ukulele from "../../assets/images/ukulele.png";
+import { Button, Stack } from '@mui/material'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 
@@ -52,19 +54,23 @@ const Modal = ({ active, setActive, product }: ProductModalProps) => {
                             src={imageSrc(product.photo)}
                             alt="photo"
                         />
-                        <button
+                        
+                    </div>
+                    <Stack spacing={2} className="comment_section">
+                        <Button
+                            variant="contained"
+                            color='primary'
                             className="modal_buy_button"
                             onClick={() => addToShoppingCart(product)}
+                            startIcon={<AddShoppingCartIcon />}
                         >
-                            <img className="cart_icon" src={cart_icon} alt="cart_icon" />
+
                             Купити
-                        </button>
-                    </div>
-                    <div className="comment_section">
+                        </Button>
                         {!commentStatus && (
-                            <button className="load_comments" onClick={() => loadComments()}>
+                            <Button variant="contained" color="info" className="load_comments" onClick={() => loadComments()}>
                                 Завантажити Коменарії
-                            </button>
+                            </Button>
                         )}
                         {commentStatus && (
                             <>
@@ -75,12 +81,12 @@ const Modal = ({ active, setActive, product }: ProductModalProps) => {
                                         </p>
                                     ))}
                                 </div>
-                                <button className="close_comments" onClick={() => loadComments()}>
+                                <Button variant="contained" color="error" className="close_comments" onClick={() => loadComments()}>
                                     Закрити коментарі
-                                </button>
+                                </Button>
                             </>
                         )}
-                    </div>
+                    </Stack>
                 </div>
             </div>
         </>

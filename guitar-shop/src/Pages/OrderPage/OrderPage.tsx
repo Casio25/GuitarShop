@@ -7,6 +7,7 @@ import electro from "../../assets/images/electro.png";
 import ukulele from "../../assets/images/ukulele.png";
 import OrderModal from "../../components/OrderModal/OrderModal";
 import React from "react";
+import { Button, Stack } from '@mui/material'
 
 interface IOrderData {
     price: number;
@@ -59,7 +60,7 @@ const OrderPage = () => {
                 <div className="order_summary">
                     <p>Загальна ціна: {OrderSumandQuantity(ShoppingCartStore.ShoppingCart, "sum")}</p>
                     <p>Загальна кількість: {OrderSumandQuantity(ShoppingCartStore.ShoppingCart, "quantity")}</p>
-                    <button onClick={() => setModalActive(true)}>Confirm Order</button>
+                    <Button variant="contained" color="primary" onClick={() => setModalActive(true)}>Confirm Order</Button>
                 </div>
             </div>
             <OrderModal active={modalActive} setActive={setModalActive} order={ShoppingCartStore.ShoppingCart} />

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { IBackendOrder } from "../../utils/interface/IFinalOrder";
 import { IOrderItem } from "../../utils/interface/IOrderItem";
 import "./OrderModal.css";
+import { Button, Stack } from '@mui/material'
 
 interface OrderModalProps {
     active: boolean;
@@ -121,7 +122,7 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
                         {phoneNumberError && <p className="error-message">{phoneNumberError}</p>}
                         {emailError && <p className="error-message">{emailError}</p>}
                     </div>
-                    <button onClick={handleOrderConfirmation}>Підтвердити замовлення</button>
+                    <Button variant='contained' color='success' onClick={handleOrderConfirmation}>Підтвердити замовлення</Button>
                 </div>
             </div>
         </>

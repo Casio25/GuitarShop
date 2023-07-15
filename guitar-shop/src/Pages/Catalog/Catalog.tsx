@@ -14,6 +14,7 @@ import acustic from "../../assets/images/acustic.png";
 import electro from "../../assets/images/electro.png";
 import ukulele from "../../assets/images/ukulele.png";
 import { Button, Stack } from '@mui/material'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 interface IFilteredData {
     guitarName: string;
     photo: string;
@@ -102,8 +103,7 @@ const Catalog: React.FC = () => {
                                 <Button color='info' variant="contained" size='small' className="button_more_info" onClick={() => ModalMoreInfo(filteredData)}>
                                     Інформація
                                 </Button>
-                                <Button color='primary'variant="contained" size='large' className="button_buy" onClick={() => addToShoppingCart(filteredData)}>
-                                    <img className="cart_icon" src={cart_icon} alt="cart_icon" />
+                                <Button color='primary'variant="contained" size='large' className="button_buy" startIcon={<AddShoppingCartIcon/>} onClick={() => addToShoppingCart(filteredData)}>
                                     Купити
                                 </Button>
                             </Stack>
