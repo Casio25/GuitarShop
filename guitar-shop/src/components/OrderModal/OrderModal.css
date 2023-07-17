@@ -30,24 +30,7 @@
     text-align: center;
 }
 
-.modal_order_content input {
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
 
-.modal_order_content input:placeholder {
-    color: #999;
-}
-
-.modal_order_content input:focus {
-    outline: none;
-    border-color: #66afe9;
-    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
-}
 
 .modal_order_content button {
     background-color: #4caf50;

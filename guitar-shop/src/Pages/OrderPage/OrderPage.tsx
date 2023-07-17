@@ -18,6 +18,10 @@ interface IOrderData {
 }
 
 const OrderPage = () => {
+
+    const isEmpty = ShoppingCartStore.ShoppingCart.length
+
+
     const [modalActive, setModalActive] = useState(false)
 
     function imageSrc(data: string) {
@@ -60,7 +64,9 @@ const OrderPage = () => {
                 <div className="order_summary">
                     <p>Загальна ціна: {OrderSumandQuantity(ShoppingCartStore.ShoppingCart, "sum")}</p>
                     <p>Загальна кількість: {OrderSumandQuantity(ShoppingCartStore.ShoppingCart, "quantity")}</p>
+                    {!!isEmpty && (<>
                     <Button variant="contained" color="primary" onClick={() => setModalActive(true)}>Confirm Order</Button>
+                    </>)}
                 </div>
             </div>
             <OrderModal active={modalActive} setActive={setModalActive} order={ShoppingCartStore.ShoppingCart} />

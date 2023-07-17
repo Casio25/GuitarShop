@@ -5,7 +5,7 @@ import { useState } from "react";
 import { IBackendOrder } from "../../utils/interface/IFinalOrder";
 import { IOrderItem } from "../../utils/interface/IOrderItem";
 import "./OrderModal.css";
-import { Button, Stack } from '@mui/material'
+import { Stack, TextField, Button, InputAdornment } from '@mui/material'
 
 interface OrderModalProps {
     active: boolean;
@@ -33,7 +33,7 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
     };
 
     const validatePhoneNumber = (phoneNumber: string) => {
-        let re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+        let re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;;
         return re.test(phoneNumber);
     };
 
@@ -115,14 +115,20 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
             <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
                 <div className="modal_order_content" onClick={(e) => e.stopPropagation()}>
                     <h2>Введіть ваші дані</h2>
-                    <div>
-                        <input type="text" placeholder="Ім'я" value={name} onChange={handleNameChange} />
-                        <input type="tel" placeholder="Номер телефону" value={phoneNumber} onChange={handlePhoneNumberChange} />
-                        <input type="email" placeholder="Email" value={email} onChange={handleEmailChange} />
+                    <Stack direction='column' spacing={2}>
+                        <TextField type="text" label="Ім'я" required value={name} onChange={handleNameChange} />
+                        <TextField type="tel" label="Номер телефону" required value={phoneNumber} InputProps={{
+                            startAdornment: <InputAdornment position="start">+38</InputAdornment>
+                        }} onChange={handlePhoneNumberChange} />
+                        <TextField type="email" label="Email" required value={email} onChange={handleEmailChange} />
                         {phoneNumberError && <p className="error-message">{phoneNumberError}</p>}
                         {emailError && <p className="error-message">{emailError}</p>}
-                    </div>
-                    <Button variant='contained' color='success' onClick={handleOrderConfirmation}>Підтвердити замовлення</Button>
+                    </Stack>
+                
+                    <Button 
+                        sx={{ m: 2 }}
+                     variant='contained' color='success' onClick={handleOrderConfirmation}>Підтвердити замовлення</Button>
+                    
                 </div>
             </div>
         </>
