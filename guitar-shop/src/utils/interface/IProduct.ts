@@ -5,5 +5,6 @@ export interface ProductModalProps {
         guitarName: string;
         photo: string;
         comments: string[];
+        string: string;
     };
 }

@@ -47,15 +47,16 @@ const Modal = ({ active, setActive, product }: ProductModalProps) => {
                     onClick={(e) => e.stopPropagation()}
                 >
                     <h2>Додати товар до кошику</h2>
-                    <div className="guitar_info">
+                    <Stack className="guitar_info">
                         <h3 className="modal_name">{product.guitarName}</h3>
                         <img
                             className="modal_image"
                             src={imageSrc(product.photo)}
                             alt="photo"
                         />
+                        <p className="modal_numberOfString">Кількість струн: {product.string}</p>
                         
-                    </div>
+                    </Stack>
                     <Stack spacing={2} className="comment_section">
                         <Button
                             variant="contained"

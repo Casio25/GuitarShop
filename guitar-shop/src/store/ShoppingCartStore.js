@@ -1,4 +1,5 @@
 import { observable } from "mobx";
+import { toJS } from "mobx";
 
 const ShoppingCartStore = observable({
     ShoppingCart: [],
@@ -22,7 +23,7 @@ const ShoppingCartStore = observable({
         } else {
             data.quantity = 1;
             this.ShoppingCart.push(data);
-            console.log(ShoppingCartStore.ShoppingCart)
+            console.log(toJS(ShoppingCartStore.ShoppingCart))
         }
         this.saveToLocalStorage();
     },

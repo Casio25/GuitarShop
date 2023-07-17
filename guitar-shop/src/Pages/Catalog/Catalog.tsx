@@ -20,6 +20,7 @@ interface IFilteredData {
     photo: string;
     rating: number;
     price: number;
+    string: string;
     comments: [];
 }
 
@@ -27,6 +28,7 @@ interface ISelectedProduct {
     guitarName: string;
     photo: string;
     comments: string[]; // Add the 'comments' property
+    string: string;
     rating: number | null;
 }
 
@@ -43,6 +45,7 @@ const Catalog: React.FC = () => {
         photo: "",
         comments: [], // Add the 'comments' property
         rating: null,
+        string: "",
     });
     const [currentPage, setCurrentPage] = useState(startPage);
 

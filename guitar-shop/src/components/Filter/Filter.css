@@ -6,24 +6,13 @@
     display: flex;
 }
 .price_range input {
-    margin-right: 10px;
-    padding: 8px 12px; /* Add padding for a comfortable input area */
-    border: 1px solid #ccc; /* Add a border to visually separate the input */
-    border-radius: 4px; /* Round the corners of the input */
+    padding:  13px; /* Add padding for a comfortable input area */
     font-size: 14px; /* Adjust the font size to your preference */
     color: #333; /* Set the text color */
     box-shadow: none; /* Remove any box shadow that might be applied */
     transition: border-color 0.3s ease; /* Add a smooth transition for the border color */
 }
 
-.price_range input:focus {
-    outline: none;
-    /* Remove the default focus outline */
-    border-color: orange;
-    /* Change the border color when the input is focused */
-    box-shadow: 0 0 8px 2px rgba(255, 145, 0, 0.8);
-    /* Add a more pronounced box shadow when the input is focused */
-}
 
 
 .min_price{
