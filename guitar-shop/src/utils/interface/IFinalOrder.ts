@@ -9,7 +9,7 @@ export interface IBackendOrder{
 
 }
 interface Order{
-    id: number;
+    itemId: number;
     price: number;
     quantity: number;
 }
