@@ -27,6 +27,9 @@
 .basket_button{
     padding: 10px;
 }
+.login_button{
+    padding: 10px;
+}
 
 /* middle part in the header*/
 .header_text_link{
@@ -55,3 +58,4 @@ nav .header_text_link{
     z-index: 200;
     /* Move the image to the right side of the container */
 }
+

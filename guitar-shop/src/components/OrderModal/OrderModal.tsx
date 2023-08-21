@@ -65,7 +65,7 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
     const orderBackendInfo = (order: IOrderItem[]) => {
         const items = order.map((orderObject: IOrderItem) => ({
             itemId: orderObject.id,
-            price: orderObject.price,
+            price: orderObject.price,//remove in future
             quantity: orderObject.quantity
         }));
 
