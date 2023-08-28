@@ -16,6 +16,7 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [passwordShown, setPaswordShown] = useState(false)
+    const [registrationError, setRegistrationError] = useState("")
 
     const handleChange = (type: string, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         switch (type) {
@@ -60,10 +61,23 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
             headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
             body: JSON.stringify(data)
         }).then(function (response) {
-            return response.text();
+            return response.json(); // Parse response as JSON
         })
-            .then(function (text) {
-                console.log(text);
+            .then(function (json) {
+                console.log(json)
+                console.log(json.error)
+                switch (json.error) {
+                    case "User already exists":
+                        setRegistrationError("User with this email already exists");
+                        break;
+                    default:
+                        setRegistrationError(""); // Reset error to empty string
+                        break;
+                }
+
+            })
+            .catch(function (error) {
+                console.error("Error:", error);
             });
 
     } 
@@ -91,6 +105,7 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
         } else {
             setPhoneNumberError("");
             setEmailError("");
+            setRegistrationError(""); 
             console.log("registation test")
             RegistrationData()
         }
@@ -118,6 +133,7 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
                             </IconButton>
                         </InputAdornment>
                     )}} />
+                    {registrationError && <p className="registration-message">{registrationError}</p>}
                 </Stack>
 
                 <Button
