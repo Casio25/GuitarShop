@@ -6,6 +6,8 @@ import { IBackendOrder } from "../../utils/interface/IFinalOrder";
 import { IOrderItem } from "../../utils/interface/IOrderItem";
 import "./OrderModal.css";
 import { Stack, TextField, Button, InputAdornment } from '@mui/material'
+import LoginStore from "../../store/LoginStore.js"
+import { observer } from "mobx-react-lite";
 
 interface OrderModalProps {
     active: boolean;
@@ -49,7 +51,7 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
     const postData = (data: IBackendOrder) => {
         fetch("http://localhost:4000/order", {
             method: "POST",
-            headers: {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Authorization": `Bearer ${LoginStore.jwtToken}`},
             body: JSON.stringify(data)
         }).then(function (response) {
             return response.text();
@@ -135,5 +137,5 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
     );
 };
 
-export default OrderModal;
+export default  observer(OrderModal);
 

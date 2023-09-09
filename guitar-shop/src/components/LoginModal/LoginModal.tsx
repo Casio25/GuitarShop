@@ -1,31 +1,25 @@
 import "./LoginModal.css";
 import React from "react";
+import { observer } from "mobx-react-lite";
+import LoginStore from "../../store/LoginStore.js"
 import { useState } from "react";
-import { LoginModalProps } from "../../utils/interface/ILoginModal";
+import { SignUpModalProps } from "../../utils/interface/ISignUpModal";
 import { ChangeEvent } from "react";
-import {IRegistration} from "../../utils/interface/IRegistration"
+import { ILogin } from "../../utils/interface/ILogin"
 import { Stack, TextField, Button, IconButton, InputAdornment } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { toJS } from "mobx";
 
-const LoginModal = ({ active, setActive }: LoginModalProps) => {
-    const [name, setName] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [phoneNumberError, setPhoneNumberError] = useState("");
+const LoginModal = ({ active, setActive }: SignUpModalProps) => {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [passwordShown, setPaswordShown] = useState(false)
-    const [registrationError, setRegistrationError] = useState("")
+    const [loginError, setLoginError] = useState("");
 
     const handleChange = (type: string, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         switch (type) {
-            case 'name':
-                setName(event.target.value);
-                break;
-            case 'phoneNumber':
-                setPhoneNumber(event.target.value);
-                break;
             case 'email':
                 setEmail(event.target.value);
                 break;
@@ -37,12 +31,6 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
                 break;
         }
     };
-
-    const validatePhoneNumber = (phoneNumber: string) => {
-        let re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;;
-        return re.test(phoneNumber);
-    };
-
     function validateEmail(email: string) {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -54,9 +42,8 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
         setPaswordShown(!passwordShown);
     }
 
-
-    const postRegister = (data: IRegistration) => {
-        fetch("http://localhost:4000/auth/signup", {
+    const postLogin = (data: ILogin) => {
+        fetch("http://localhost:4000/auth/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
             body: JSON.stringify(data)
@@ -64,14 +51,19 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
             return response.json(); // Parse response as JSON
         })
             .then(function (json) {
-                console.log(json)
+                if (json.access_token) {
+                    LoginStore.setJwtToken(json.access_token); // Set the jwtToken property
+                    console.log(`store  data ${LoginStore.jwtToken}`);
+                }
                 console.log(json.error)
                 switch (json.error) {
-                    case "User already exists":
-                        setRegistrationError("User with this email already exists");
+                    case "Bad Request":
+                        setLoginError("Wrong email or password");
                         break;
+                    case "Internal server error":
+                        setLoginError("Server is not working")
                     default:
-                        setRegistrationError(""); // Reset error to empty string
+                        setLoginError(""); // Reset error to empty string
                         break;
                 }
 
@@ -80,34 +72,25 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
                 console.error("Error:", error);
             });
 
-    } 
-
-
-    const RegistrationData =() => {
-        const backendRegistration = {
-            name: name,
+    }
+    const LoginData = () => {
+        const backendLogin = {
             email: email,
-            phoneNumber: phoneNumber,
             password: password,
 
         }
-        postRegister(backendRegistration)
-        console.log(backendRegistration)
+        postLogin(backendLogin)
+        console.log(backendLogin)
     }
 
-
-
-    const handleRegistration = () => {
-        if (phoneNumber.trim() === "" || !validatePhoneNumber(phoneNumber)) {
-            setPhoneNumberError("Please enter a valid phone number");
-        } else if (email.trim() === "" || !validateEmail(email)) {
+    const handleLogin = () => {
+         if (email.trim() === "" || !validateEmail(email)) {
             setEmailError("Please enter a valid email address");
         } else {
-            setPhoneNumberError("");
             setEmailError("");
-            setRegistrationError(""); 
+            setLoginError("");
             console.log("registation test")
-            RegistrationData()
+            LoginData()
         }
     }
 
@@ -118,30 +101,28 @@ const LoginModal = ({ active, setActive }: LoginModalProps) => {
                 onClick={(e) => e.stopPropagation()}>
                 <h2>Введіть ваші дані</h2>
                 <Stack direction='column' spacing={2}>
-                    <TextField type="text" label="Ім'я" required value={name} onChange={(e) => handleChange('name', e)} />
-                    <TextField type="tel" label="Номер телефону" required value={phoneNumber} InputProps={{
-                        startAdornment: <InputAdornment position="start">+38</InputAdornment>
-                    }} onChange={(e) => handleChange('phoneNumber', e)} />
                     <TextField type="email" label="Email" required value={email} onChange={(e) => handleChange('email', e)} />
-                    {phoneNumberError && <p className="error-message">{phoneNumberError}</p>}
                     {emailError && <p className="error-message">{emailError}</p>}
-                    <TextField type={passwordShown? 'text': "password"} label="Пароль" required value={password} onChange={(e) => handleChange("password", e)}
-                    InputProps={{endAdornment: (
-                        <InputAdornment position='end'>
-                            <IconButton onClick={togglePassword}>
-                                {passwordShown ? <Visibility /> : <VisibilityOff/>}
-                            </IconButton>
-                        </InputAdornment>
-                    )}} />
-                    {registrationError && <p className="registration-message">{registrationError}</p>}
+                    <TextField type={passwordShown ? 'text' : "password"} label="Пароль" required value={password} onChange={(e) => handleChange("password", e)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <IconButton onClick={togglePassword}>
+                                        {passwordShown ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }} />
+                    {loginError && <p className="login-message">{loginError}</p>}
                 </Stack>
 
                 <Button
                     sx={{ m: 2 }}
-                    variant='contained' color='success' onClick={handleRegistration}>Зареєструватись</Button>
+                    variant='contained' color='success' onClick={handleLogin}>Увійти</Button>
             </div>
 
         </div>
     )
 }
-export default LoginModal;
+
+export default observer(LoginModal);

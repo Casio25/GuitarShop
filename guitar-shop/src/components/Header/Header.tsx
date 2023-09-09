@@ -7,14 +7,17 @@ import icon_map from "../../assets/icons/icon_map.png";
 import icon_search from "../../assets/icons/icon_search.png";
 import icon_basket from "../../assets/icons/icon_basket.png";
 import login_icon from "../../assets/icons/login_icon.png"
+import signup_icon from "../../assets/icons/signup_icon.png"
 import Modal from "../ShoppingCart/ShoppingCart";
 import ShoppingCartStore from "../../store/ShoppingCartStore.js";
+import SignUpModal from "../SignUpModal/SignUpModal";
 import LoginModal from "../LoginModal/LoginModal";
 
 export const Header = () => {
     const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
     const headerTextLinks = ["./", "/where_to_buy", "/about_us", "/service_centers"];
     const [modalActive, setModalActive] = useState(false);
+    const [signUpModal, setSignUpModal] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
     const [order, setOrder] = useState([]);
 
@@ -38,7 +41,8 @@ export const Header = () => {
                     ))}
                 </nav>
                 <nav className="header_icons">
-                    <img className="login_button" src={login_icon} alt="login_button" onClick={()=> setLoginModal(true)}/>
+                    <img  className="login_button" src={login_icon} alt="login_button" onClick={()=> setLoginModal(true)}/>
+                    <img className="signup_button" src={signup_icon} alt="signup_button" onClick={()=> setSignUpModal(true)}/>
                     <NavLink to="/map">
                         <img className="header_icon_map" src={icon_map} alt="serch_icon" />
                     </NavLink>
@@ -49,6 +53,7 @@ export const Header = () => {
             </div>
             <div className="image_header"></div>
             <Modal active={modalActive} setActive={setModalActive} order={order} />
+            <SignUpModal active={signUpModal} setActive={setSignUpModal} />
             <LoginModal active={loginModal} setActive={setLoginModal} />
         </>
     );
