@@ -53,7 +53,9 @@ const LoginModal = ({ active, setActive }: SignUpModalProps) => {
             .then(function (json) {
                 if (json.access_token) {
                     LoginStore.setJwtToken(json.access_token); // Set the jwtToken property
+                    LoginStore.setLoginEmail(data.email); // set the Email
                     console.log(`store  data ${LoginStore.jwtToken}`);
+                    console.log(`store email ${LoginStore.email}`)
                 }
                 console.log(json.error)
                 switch (json.error) {

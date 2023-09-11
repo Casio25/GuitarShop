@@ -78,8 +78,6 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
 
         const backendOrder: IBackendOrder = {
             items: items,
-            userName: name, 
-            userPhoneNumber: phoneNumber,
             userEmail: email,
             totalPrice: totalPrice,
             date: (new Date(Date.now())).toString()
