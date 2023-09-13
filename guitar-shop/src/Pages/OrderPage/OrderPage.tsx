@@ -11,6 +11,7 @@ import React from "react";
 import { Button, Stack } from '@mui/material'
 import { IOrderItem } from "../../utils/interface/IOrderItem";
 import { IBackendOrder } from "../../utils/interface/IFinalOrder";
+import UnauthorizedModal from "../../components/UnauthorizedModal/UnauthorizedModal"
 
 interface IOrderData {
     price: number;
@@ -52,21 +53,29 @@ const OrderPage = () => {
         }
     }
 
-/* Our new logic to kill modal*/
+    /* Our new logic to kill modal */
     const postData = (data: IBackendOrder) => {
         fetch("http://localhost:4000/order", {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Authorization": `Bearer ${LoginStore.jwtToken}` },
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": `Bearer ${LoginStore.jwtToken}`
+            },
             body: JSON.stringify(data)
-        }).then(function (response) {
-            return response.text();
         })
+            .then(function (response) {
+                if (response.status === 401) {
+                    console.log("Please login");
+                    setModalActive(true)
+                }
+                return response.text();
+            })
             .then(function (text) {
                 console.log(text);
             });
+    }
 
-    } 
-    
     const orderBackendInfo = (order: IOrderItem[]) => {
         const items = order.map((orderObject: IOrderItem) => ({
             itemId: orderObject.id,
@@ -116,11 +125,13 @@ const OrderPage = () => {
                     <p>Загальна ціна: {OrderSumandQuantity(ShoppingCartStore.ShoppingCart, "sum")}</p>
                     <p>Загальна кількість: {OrderSumandQuantity(ShoppingCartStore.ShoppingCart, "quantity")}</p>
                     {!!isEmpty && (<>
-                        <Button variant="contained" color="primary" onClick={() => setModalActive(true)}>Confirm Order</Button>
+                        <Button variant="contained" color="primary" onClick={() => handleOrderConfirmation()}>Confirm Order</Button>
                     </>)}
                 </div>
             </div>
-            <OrderModal active={modalActive} setActive={setModalActive} order={ShoppingCartStore.ShoppingCart} />
+            {/* old modal logic */}
+            {/* <OrderModal active={modalActive} setActive={setModalActive} order={ShoppingCartStore.ShoppingCart} /> */}
+            <UnauthorizedModal active={modalActive} setActive={setModalActive} />
         </>
     )
 }
