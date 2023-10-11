@@ -1,3 +1,4 @@
+
 import "./Header.css";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -12,18 +13,91 @@ import Modal from "../ShoppingCart/ShoppingCart";
 import ShoppingCartStore from "../../store/ShoppingCartStore.js";
 import SignUpModal from "../SignUpModal/SignUpModal";
 import LoginModal from "../LoginModal/LoginModal";
+import { observer } from "mobx-react-lite";
+import LoginStore from "../../store/LoginStore.js"
+import { ILogin } from "../../utils/interface/ILogin";
+import { useNavigate } from 'react-router-dom';
+import { toJS } from "mobx";
 
-export const Header = () => {
+ const Header = () => {
     const headerTextNames = ["Каталог", "Де придбати?", "Про компанію", "Сервіс центри"];
     const headerTextLinks = ["./", "/where_to_buy", "/about_us", "/service_centers"];
     const [modalActive, setModalActive] = useState(false);
     const [signUpModal, setSignUpModal] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
     const [order, setOrder] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setOrder(ShoppingCartStore.ShoppingCart);
     }, []);
+
+
+
+    //getting orders logic
+     const getOrdersHistory = () => {
+         fetch("http://localhost:4000/orders", {
+             method: "GET",
+             headers: {
+                 "Content-Type": "application/json",
+                 "Access-Control-Allow-Origin": "*",
+                 "Authorization": `Bearer ${LoginStore.jwtToken}`
+             },
+         })
+             .then(function (response) {
+                 console.log("Response Status:", response.status); 
+                 return response.json(); 
+             })
+             .then(function (data) {
+                 console.log("Order History Data:", data);
+                 LoginStore.setLoginOrders(toJS(data))
+             })
+             .catch(function (error) {
+                 console.error("Error:", error);
+             });
+     };
+
+
+
+
+
+
+
+    const checkLogin = (data: ILogin) => {
+        // Convert the `data` object into a query string
+        const queryParams = `email=${encodeURIComponent(data.email)}&password=${encodeURIComponent(data.password)}`;
+
+        // Construct the URL with the query string
+        const url = `http://localhost:4000/auth/profile?${queryParams}`;
+
+        fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", "Authorization": `Bearer ${LoginStore.jwtToken}` }
+        }).then(function (response) {
+            switch(response.status){
+                case 200:
+                    console.log("now history page should open")
+                    getOrdersHistory()
+                    navigate("/profile")
+                break;
+                case 401:
+                    setLoginModal(true)
+                break;
+                default:
+                    console.log("unexpected response")
+            }
+            return response.json(); // Parse response as JSON
+    })
+}
+     const loginData = {
+         email: LoginStore.email,
+         password: LoginStore.password,
+
+     }
+
+
+
+
 
     return (
         <>
@@ -41,7 +115,7 @@ export const Header = () => {
                     ))}
                 </nav>
                 <nav className="header_icons">
-                    <img  className="login_button" src={login_icon} alt="login_button" onClick={()=> setLoginModal(true)}/>
+                    <img  className="login_button" src={login_icon} alt="login_button" onClick={()=> checkLogin(loginData)}/>
                     <img className="signup_button" src={signup_icon} alt="signup_button" onClick={()=> setSignUpModal(true)}/>
                     <NavLink to="/map">
                         <img className="header_icon_map" src={icon_map} alt="serch_icon" />
@@ -58,3 +132,4 @@ export const Header = () => {
         </>
     );
 };
+export default observer(Header)

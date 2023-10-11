@@ -8,6 +8,7 @@ import "./OrderModal.css";
 import { Stack, TextField, Button, InputAdornment } from '@mui/material'
 import LoginStore from "../../store/LoginStore.js"
 import { observer } from "mobx-react-lite";
+import { Password } from "@mui/icons-material";
 
 interface OrderModalProps {
     active: boolean;
@@ -79,6 +80,7 @@ const OrderModal = ({ active, setActive, order }: OrderModalProps) => {
         const backendOrder: IBackendOrder = {
             items: items,
             userEmail: email,
+            userPassword: LoginStore.password,
             totalPrice: totalPrice,
             date: (new Date(Date.now())).toString()
         };

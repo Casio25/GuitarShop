@@ -6,11 +6,7 @@ import { offers } from "../components/FakeData.js";
 import { ChangeEvent } from "react";
 
 
-const fetchData = async () => {
-    const response = await fetch('http://localhost:4000/catalog');
-    const data = await response.json();
-    return data;
-}
+
 
 const filteredDataStore = observable({
     initialData: offers,
@@ -161,6 +157,45 @@ const filteredDataStore = observable({
 
 export default filteredDataStore;
 
+// sending our filter parameters to backend to get filteredData
+
+export const fetchData = async () => {
+    const queryParams = {}
+
+    if (filteredDataStore.filterArray.type.length > 0){
+        queryParams.type = filteredDataStore.filterArray.type.join(",");
+    }
+    if (filteredDataStore.filterArray.string.length > 0){
+        queryParams.string = filteredDataStore.filterArray.string.join(",")
+    }
+    if (filteredDataStore.filterArray.price.minPrice !== undefined ||
+        filteredDataStore.filterArray.price.maxPrice !== undefined){
+            queryParams.price = JSON.stringify({
+                minPrice: filteredDataStore.filterArray.price.minPrice,
+                maxPrice: filteredDataStore.filterArray.price.maxPrice
+
+        })
+        }
+
+    const queryString = Object.keys(queryParams)
+        .map((key) =>  `${key}=${queryParams[key]}`)
+        .join('&')
+
+    console.log()
+
+    const url = `http://localhost:4000/catalog?skip=0&take=70&${queryString}`
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+        },
+
+    });
+    const responseData = await response.json();
+    console.log(responseData);
+    return responseData;
+}
 
 // Separate React function component
 export function DataFetcher() {

@@ -3,6 +3,7 @@ export interface IBackendOrder{
     items: Order[];
     totalPrice: number;
     userEmail: string;
+    userPassword: string;
 
 
 }

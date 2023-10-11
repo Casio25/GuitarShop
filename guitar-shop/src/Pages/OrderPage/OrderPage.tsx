@@ -91,6 +91,7 @@ const OrderPage = () => {
         const backendOrder: IBackendOrder = {
             items: items,
             userEmail: LoginStore.email,
+            userPassword: LoginStore.password,
             totalPrice: totalPrice,
             date: (new Date(Date.now())).toString()
         };

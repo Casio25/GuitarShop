@@ -54,16 +54,21 @@ const LoginModal = ({ active, setActive }: SignUpModalProps) => {
                 if (json.access_token) {
                     LoginStore.setJwtToken(json.access_token); // Set the jwtToken property
                     LoginStore.setLoginEmail(data.email); // set the Email
+                    LoginStore.setLoginPassword(data.password);
                     console.log(`store  data ${LoginStore.jwtToken}`);
                     console.log(`store email ${LoginStore.email}`)
                 }
                 console.log(json.error)
                 switch (json.error) {
                     case "Bad Request":
-                        setLoginError("Wrong email or password");
+                        setLoginError("You forgot to add password");
                         break;
-                    case "Internal server error":
-                        setLoginError("Server is not working")
+                    case "Wrong password":
+                        setLoginError("Wrong password");
+                        break;
+                    case "User with this email doesn't exist":
+                        setLoginError("User with this email doesn't exist");
+                        break;
                     default:
                         setLoginError(""); // Reset error to empty string
                         break;

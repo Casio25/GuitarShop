@@ -7,24 +7,65 @@ import filteredDataStore from "../../store/FilteredDataStore.js";
 import * as variables from "../variables.js";
 import "./Filter.css"
 import React from "react";
-import { Stack, TextField, Checkbox } from "@mui/material"
+import { Stack, TextField, Checkbox, Slider, Button } from "@mui/material"
+import { fetchData } from '../../store/FilteredDataStore.js';
 
 const FilterBlock = () => {
 
-    useEffect(() => {
-        const filtered = filteredDataStore.applyFilter(filteredDataStore.initialData);
-        filteredDataStore.updateFilteredData(filtered);
-    }, [filteredDataStore.filterArray]);
+
+    // old realtime fiter for uploaded data
+    // useEffect(() => {
+    //     const filtered = filteredDataStore.applyFilter(filteredDataStore.initialData);
+    //     filteredDataStore.updateFilteredData(filtered);
+    // }, [filteredDataStore.filterArray]);
 
     useEffect(() => {
         console.log(toJS(filteredDataStore.filterArray));
         console.log(toJS(filteredDataStore.currentProductList))
     }, [filteredDataStore.currentProductList]);
 
+    const [sliderValue, setSliderValue] = useState([1, 100])
+
+    const handleSliderChange = (
+        event: any,
+        newValue: number | number[]
+    ) => {
+        setSliderValue(newValue as number[]);
+        console.log(sliderValue)
+    };
+
+    const confirmFilterChange = (event: any) => {
+
+        const filtered = filteredDataStore.applyFilter(filteredDataStore.initialData);
+        filteredDataStore.updateFilteredData(filtered);
+        fetchData()
+
+    }
+
     return (
         <>
             <div className="filterBlock">
                 <h1>Фільтр</h1>
+                <Button
+                    className="confirm_filter"
+                    variant="contained"
+                    color="primary"
+                    sx={{ mx: "50px" }}
+                    onClick={confirmFilterChange}>
+                    Confirm fliter
+                </Button>
+                <h5>Скільки товарів ви хочете завантажити?</h5>
+                <Stack className="product_range" direction="row" spacing={2} sx={{ mr: '20px', ml: '20px', mb: "10px"}}>
+                    <Slider
+                        value={sliderValue}
+                        onChange={handleSliderChange}
+                        min={1}
+                        max={100}
+                        valueLabelDisplay="auto"
+                        valueLabelFormat={(value: number) => `${value}`}
+                        aria-labelledby="range-slider"
+                    />
+                </Stack>
                 <Stack className="price_range" direction='row' spacing={2} sx={{mr: '10px'}}>
                     <TextField
                         type="number"

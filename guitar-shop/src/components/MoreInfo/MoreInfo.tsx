@@ -48,7 +48,7 @@ const Modal = ({ active, setActive, product }: ProductModalProps) => {
                 >
                     <h2>Додати товар до кошику</h2>
                     <Stack className="guitar_info">
-                        <h3 className="modal_name">{product.guitarName}</h3>
+                        <h3 className="modal_name">{product.productName}</h3>
                         <img
                             className="modal_image"
                             src={imageSrc(product.photo)}

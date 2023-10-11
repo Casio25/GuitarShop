@@ -2,8 +2,15 @@
     border: none;
     
 }
+
+h1, h5{
+    margin-left: 10px;
+}
+
+
 .price_range{
     display: flex;
+
 }
 .price_range input {
     padding:  13px; /* Add padding for a comfortable input area */

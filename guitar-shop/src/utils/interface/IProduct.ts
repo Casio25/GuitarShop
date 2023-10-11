@@ -2,7 +2,7 @@ export interface ProductModalProps {
     active: boolean;
     setActive: (value: boolean) => void;
     product: {
-        guitarName: string;
+        productName: string;
         photo: string;
         comments: string[];
         string: string;

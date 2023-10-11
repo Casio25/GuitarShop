@@ -16,7 +16,7 @@ import ukulele from "../../assets/images/ukulele.png";
 import { Button, Stack } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 interface IFilteredData {
-    guitarName: string;
+    productName: string;
     photo: string;
     rating: number;
     price: number;
@@ -25,7 +25,7 @@ interface IFilteredData {
 }
 
 interface ISelectedProduct {
-    guitarName: string;
+    productName: string;
     photo: string;
     comments: string[]; // Add the 'comments' property
     string: string;
@@ -41,7 +41,7 @@ interface IProductModalProps {
 const Catalog: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<ISelectedProduct>({
-        guitarName: "",
+        productName: "",
         photo: "",
         comments: [], // Add the 'comments' property
         rating: null,
@@ -93,7 +93,7 @@ const Catalog: React.FC = () => {
                     {currentCards.map((filteredData: IFilteredData, index: number) => (
                         <div className="guitar_card" key={index}>
                             <img className="guitar_image" src={imageSrc(filteredData.photo)} alt="photo" />
-                            <p className="guitar_name">{filteredData.guitarName}</p>
+                            <p className="guitar_name">{filteredData.productName}</p>
                             <p className="guitar_price">{filteredData.price}</p>
                             <p className="guitar-rating">
                                 {Array.from({ length: filteredData.rating }, (_, index) => (
