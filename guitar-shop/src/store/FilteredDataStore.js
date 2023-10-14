@@ -12,6 +12,9 @@ const filteredDataStore = observable({
     initialData: offers,
     currentProductList: offers,
 
+    skip: 0,
+    take: 100,
+
 
     typeChecked : {
         ukulele: false,
@@ -183,7 +186,7 @@ export const fetchData = async () => {
 
     console.log()
 
-    const url = `http://localhost:4000/catalog?skip=0&take=70&${queryString}`
+    const url = `http://localhost:4000/catalog?skip=0&take=${filteredDataStore.take}&${queryString}`
     const response = await fetch(url, {
         method: "GET",
         headers: {

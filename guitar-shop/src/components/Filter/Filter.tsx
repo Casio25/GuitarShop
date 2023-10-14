@@ -24,15 +24,18 @@ const FilterBlock = () => {
         console.log(toJS(filteredDataStore.currentProductList))
     }, [filteredDataStore.currentProductList]);
 
-    const [sliderValue, setSliderValue] = useState([1, 100])
 
-    const handleSliderChange = (
-        event: any,
-        newValue: number | number[]
-    ) => {
-        setSliderValue(newValue as number[]);
-        console.log(sliderValue)
-    };
+    const [sliderValue, setSliderValue] = useState(100)
+
+    useEffect(() => {
+        filteredDataStore.take = sliderValue
+    }, [sliderValue])
+
+    const handleSliderChange = (event: any, newValue: number | number[]) => {
+        const singleValue = Array.isArray(newValue) ? newValue[0] : newValue;
+        setSliderValue(singleValue);
+    }
+
 
     const confirmFilterChange = (event: any) => {
 
@@ -55,14 +58,17 @@ const FilterBlock = () => {
                     Confirm fliter
                 </Button>
                 <h5>Скільки товарів ви хочете завантажити?</h5>
-                <Stack className="product_range" direction="row" spacing={2} sx={{ mr: '20px', ml: '20px', mb: "10px"}}>
+                <Stack
+                    className="product_range"
+                    direction="row"
+                    spacing={2}
+                    sx={{ mr: '20px', ml: '20px', mb: '10px' }}
+                >
                     <Slider
                         value={sliderValue}
                         onChange={handleSliderChange}
-                        min={1}
-                        max={100}
                         valueLabelDisplay="auto"
-                        valueLabelFormat={(value: number) => `${value}`}
+                        valueLabelFormat={(value) => `${value}`}
                         aria-labelledby="range-slider"
                     />
                 </Stack>
