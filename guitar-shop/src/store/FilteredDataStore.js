@@ -4,7 +4,7 @@ import { toJS } from "mobx";
 import {useQuery} from 'react-query'
 import { offers } from "../components/FakeData.js";
 import { ChangeEvent } from "react";
-
+import { useEffect } from "react";
 
 
 
@@ -200,15 +200,26 @@ export const fetchData = async () => {
     return responseData;
 }
 
-// Separate React function component
 export function DataFetcher() {
-    const { data: initialData } = useQuery("initialData", fetchData);
+    const { data: initialData, isLoading } = useQuery("initialData", fetchData);
 
-    filteredDataStore.initialData = initialData || offers;
-    filteredDataStore.currentProductList = initialData || offers;
+    useEffect(() => {
+        if (!isLoading) {
+            filteredDataStore.initialData = initialData || offers;
+            filteredDataStore.currentProductList = initialData || offers;
+        }
+    }, [initialData, isLoading]);
 
-    return null; // or any JSX if needed
+    return null;
 }
+// old code
+// export function DataFetcher() {
+//     const { data: initialData } = useQuery("initialData", fetchData);
+
+//     filteredDataStore.initialData = initialData || offers;
+//     filteredDataStore.currentProductList = initialData || offers;
+
+//     return null;
+// }
 
 
-// add all filter functions and logic to store //
